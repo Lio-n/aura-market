@@ -1,6 +1,5 @@
 import aspectRatio from '@tailwindcss/aspect-ratio';
 import containerQueries from '@tailwindcss/container-queries';
-import forms from '@tailwindcss/forms';
 import type { Config } from 'tailwindcss';
 
 export default {
@@ -10,5 +9,5 @@ export default {
     extend: {}
   },
 
-  plugins: [forms, containerQueries, aspectRatio]
+  plugins: [containerQueries, aspectRatio]
 } as Config;
