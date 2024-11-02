@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
 
   import Loading from '$lib/components/loading.svelte';
-  import { userStore } from '../../stores';
+  import { userStore } from '$lib/stores/user.store';
 
   let loading = false;
   let email = '';

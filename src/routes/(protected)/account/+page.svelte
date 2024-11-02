@@ -1,7 +1,7 @@
 <script>
   import { checkPermissions } from '$lib/rbacUtils';
+  import { userStore } from '$lib/stores/user.store';
   import { PERMISSIONS } from '../../../constants';
-  import { userStore } from '../../../stores';
 
   $: canEditProfile = $userStore && checkPermissions($userStore, PERMISSIONS.UPDATE_PROFILE);
 

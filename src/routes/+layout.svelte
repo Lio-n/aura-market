@@ -5,11 +5,11 @@
 
   import { checkRole } from '$lib/rbacUtils';
   import { ROLES } from '../constants';
-  import { userStore, cartStore, productsStore } from '../stores';
-  import type { UserEntity } from '../stores';
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import Loading from '$lib/components/loading.svelte';
+  import { userStore, type UserEntity } from '$lib/stores/user.store';
+  import { productsStore } from '$lib/stores/product.store';
 
   export let data: { user: UserEntity };
 
