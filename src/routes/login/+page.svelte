@@ -42,7 +42,7 @@
 {#if loading}
   <Loading />
 {:else}
-  <div class="w-full mx-auto mt-24 max-w-md rounded-lg bg-white p-8 shadow-lg">
+  <div class="w-full mx-auto mt-24 max-w-md rounded-lg bg-white p-8 shadow-sm">
     <div class="space-y-6">
       <div class="flex flex-col items-center space-y-2">
         <a class="text-2xl font-bold" href="/" rel="ugc"> Acme </a>

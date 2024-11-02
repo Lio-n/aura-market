@@ -19,7 +19,7 @@
       </button>
     {/if}
   </div>
-  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+  <div class="bg-white rounded-lg shadow-sm overflow-hidden">
     <div class="relative w-full overflow-auto">
       <table class="w-full caption-bottom text-sm">
         <thead class="[&amp;_tr]:border-b">

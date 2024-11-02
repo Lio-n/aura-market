@@ -3,11 +3,13 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
-  import Loading from '$lib/components/loading.svelte';
   import { checkRole } from '$lib/rbacUtils';
   import { ROLES } from '../constants';
   import { userStore, cartStore, productsStore } from '../stores';
   import type { UserEntity } from '../stores';
+  import Header from '$lib/components/Header.svelte';
+  import Footer from '$lib/components/Footer.svelte';
+  import Loading from '$lib/components/loading.svelte';
 
   export let data: { user: UserEntity };
 
@@ -48,6 +50,11 @@
   $: isCustomer = $userStore && checkRole($userStore, ROLES.CUSTOMER);
 </script>
 
+<svelte:head>
+  <title>AuraMarket</title>
+</svelte:head>
+
+<!-- 
 <header class="bg-gray-900 text-white py-4 px-6 md:px-12 flex items-center justify-between">
   <a class="text-2xl font-bold" href="/">Aura Market</a>
   <nav class="hidden md:flex items-center space-x-6">
@@ -60,7 +67,6 @@
   </nav>
   <div class="flex items-center space-x-4">
     <button class="hover:text-gray-300" on:click={goToLogin}>{$userStore ? 'Sign out' : 'Sign in'}</button>
-    <!-- svelte-ignore a11y_consider_explicit_label -->
     <a class="hover:text-gray-300" href="#">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +85,6 @@
       </svg>
     </a>
     <div class="relative">
-      <!-- svelte-ignore a11y_consider_explicit_label -->
       <a class="hover:text-gray-300" href="#">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -106,11 +111,16 @@
     </div>
   </div>
 </header>
+ -->
 
-<main>
+<Header />
+
+<main class="max-w-screen-lg my-0 mx-auto">
   {#if loading}
     <Loading />
   {:else}
     <slot />
   {/if}
 </main>
+
+<Footer />
