@@ -1,5 +1,5 @@
 <script>
-  const TopiscountsContent = [
+  const TopDiscountsContent = [
     {
       to: '/product/discounts/40',
       discount_percentage: 40,
@@ -28,10 +28,10 @@
 </script>
 
 <section class="px-4 py-4 md:py-8 md:px-12">
-  <h2 class="text-xl mb-4 font-bold">Get Up 70% OFF</h2>
+  <h2 class="text-xl mb-4 font-bold text-gray-900">Get Up 70% OFF</h2>
 
   <ul class="grid sm:grid-cols-3 gap-4 overflow-x-auto">
-    {#each TopiscountsContent as item}
+    {#each TopDiscountsContent as item}
       <a href={item.to} class="{item.bg_color} rounded-md grid grid-rows-1 max-sm:grid-cols-2 sm:grid-rows-2">
         <div class="p-3 sm:px-6 sm:py-4">
           <span class="font-semibold text-gray-700 text-lg">Save</span>

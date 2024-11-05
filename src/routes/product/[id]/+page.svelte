@@ -2,4 +2,6 @@
   let { data } = $props();
 </script>
 
-<h1>Category : {data.category}</h1>
+<h1>
+  Product ID : {data.id}
+</h1>

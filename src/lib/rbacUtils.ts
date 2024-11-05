@@ -1,6 +1,6 @@
 import type { Permission, Role } from '../constants';
-import type { UserEntity } from '../stores';
 import { rolePermissions } from './rolePermissions';
+import type { UserEntity } from './stores/user.store';
 
 export function checkRole(user: UserEntity, requiredRole: Role) {
   if (!user) {

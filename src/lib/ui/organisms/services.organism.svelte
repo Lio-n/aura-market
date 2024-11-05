@@ -19,7 +19,7 @@
 </script>
 
 <section class="px-4 py-4 md:py-8 md:px-12">
-  <h2 class="text-xl mb-4 font-bold">Services To Help You Shop</h2>
+  <h2 class="text-xl mb-4 font-bold text-gray-900">Services To Help You Shop</h2>
 
   <ul class="grid max-sm:grid-rows-3 sm:grid-cols-3 gap-4 overflow-x-auto">
     {#each ServicesContent as item}

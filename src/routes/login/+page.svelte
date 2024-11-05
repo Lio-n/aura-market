@@ -42,13 +42,14 @@
 {#if loading}
   <Loading />
 {:else}
-  <div class="w-full mx-auto mt-24 max-w-md rounded-lg bg-white p-8 shadow-sm">
+  <div class="w-full mx-auto my-20 max-w-md rounded-lg bg-white p-8 shadow-sm">
     <div class="space-y-6">
       <div class="flex flex-col items-center space-y-2">
-        <a class="text-2xl font-bold" href="/" rel="ugc"> Acme </a>
+        <a class="text-2xl font-bold" href="/" rel="ugc"> AuraMarket </a>
         <p class="text-gray-500">Welcome back! Please sign in to your account.</p>
       </div>
-      <form class="space-y-4" on:submit|preventDefault={login}>
+
+      <form class="space-y-5" on:submit|preventDefault={login}>
         <div>
           <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="email">
             Email
@@ -68,7 +69,6 @@
             <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="password">
               Password
             </label>
-            <a class="text-sm font-medium text-primary-500 hover:underline" href="#" rel="ugc"> Forgot password? </a>
           </div>
           <input
             class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -86,10 +86,6 @@
           Sign in
         </button>
       </form>
-      <div class="text-center text-sm text-gray-500">
-        Don't have an account?{' '}
-        <a class="font-medium text-primary-500 hover:underline" href="#" rel="ugc"> Sign up </a>
-      </div>
     </div>
   </div>
 {/if}

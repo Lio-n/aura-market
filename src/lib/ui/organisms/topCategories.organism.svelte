@@ -16,7 +16,7 @@
 </script>
 
 <section class="px-4 py-4 md:py-8 md:px-12">
-  <h2 class="text-xl mb-4 font-bold">Shop Our Top Categories</h2>
+  <h2 class="text-xl mb-4 font-bold text-gray-900">Shop Our Top Categories</h2>
 
   <ul
     class="grid grid-cols-2 grid-rows-[repeat(2,_8rem)] sm:grid-cols-4 sm:grid-rows-[repeat(1,_15rem)] gap-4 overflow-x-auto"
