@@ -1,0 +1,182 @@
+[
+  {
+    "id": 2,
+    "title": "Classic Red Pullover Hoodie",
+    "price": 10,
+    "image": "https://i.imgur.com/1twoaDy.jpeg"
+  },
+  {
+    "id": 3,
+    "title": "Classic Heather Gray Hoodie",
+    "price": 69,
+    "image": "https://i.imgur.com/cHddUCu.jpeg"
+  },
+  {
+    "id": 4,
+    "title": "Classic Grey Hooded Sweatshirt",
+    "price": 90,
+    "image": "https://i.imgur.com/R2PN9Wq.jpeg"
+  },
+  {
+    "id": 5,
+    "title": "Classic Black Hooded Sweatshirt",
+    "price": 79,
+    "image": "https://i.imgur.com/cSytoSD.jpeg"
+  },
+  {
+    "id": 6,
+    "title": "Classic Comfort Fit Joggers",
+    "price": 25,
+    "image": "https://i.imgur.com/ZKGofuB.jpeg"
+  },
+  {
+    "id": 7,
+    "title": "Classic Comfort Drawstring Joggers",
+    "price": 79,
+    "image": "https://i.imgur.com/mp3rUty.jpeg"
+  },
+  {
+    "id": 8,
+    "title": "Classic Red Jogger Sweatpants",
+    "price": 98,
+    "image": "https://i.imgur.com/9LFjwpI.jpeg"
+  },
+  {
+    "id": 9,
+    "title": "Classic Navy Blue Baseball Cap",
+    "price": 61,
+    "image": "https://i.imgur.com/R3iobJA.jpeg"
+  },
+  {
+    "id": 10,
+    "title": "Classic Blue Baseball Cap",
+    "price": 86,
+    "image": "https://i.imgur.com/wXuQ7bm.jpeg"
+  },
+  {
+    "id": 11,
+    "title": "Classic Red Baseball Cap",
+    "price": 35,
+    "image": "https://i.imgur.com/cBuLvBi.jpeg"
+  },
+  {
+    "id": 12,
+    "title": "Classic Black Baseball Cap",
+    "price": 58,
+    "image": "https://i.imgur.com/KeqG6r4.jpeg"
+  },
+  {
+    "id": 13,
+    "title": "Classic Olive Chino Shorts",
+    "price": 84,
+    "image": "https://i.imgur.com/UsFIvYs.jpeg"
+  },
+  {
+    "id": 14,
+    "title": "Classic High-Waisted Athletic Shorts",
+    "price": 43,
+    "image": "https://i.imgur.com/eGOUveI.jpeg"
+  },
+  {
+    "id": 15,
+    "title": "Classic White Crew Neck T-Shirt",
+    "price": 39,
+    "image": "https://i.imgur.com/axsyGpD.jpeg"
+  },
+  {
+    "id": 16,
+    "title": "Classic White Tee - Timeless Style and Comfort",
+    "price": 73,
+    "image": "https://i.imgur.com/Y54Bt8J.jpeg"
+  },
+  {
+    "id": 17,
+    "title": "Classic Black T-Shirt",
+    "price": 35,
+    "image": "https://i.imgur.com/9DqEOV5.jpeg"
+  },
+  {
+    "id": 18,
+    "title": "Sleek White & Orange Wireless Gaming Controller",
+    "price": 69,
+    "image": "https://i.imgur.com/ZANVnHE.jpeg"
+  },
+  {
+    "id": 19,
+    "title": "Sleek Wireless Headphone & Inked Earbud Set",
+    "price": 44,
+    "image": "https://i.imgur.com/yVeIeDa.jpeg"
+  },
+  {
+    "id": 20,
+    "title": "Sleek Comfort-Fit Over-Ear Headphones",
+    "price": 28,
+    "image": "https://i.imgur.com/SolkFEB.jpeg"
+  },
+  {
+    "id": 21,
+    "title": "Efficient 2-Slice Toaster",
+    "price": 48,
+    "image": "https://i.imgur.com/keVCVIa.jpeg"
+  },
+  {
+    "id": 22,
+    "title": "Sleek Wireless Computer Mouse",
+    "price": 10,
+    "image": "https://i.imgur.com/w3Y8NwQ.jpeg"
+  },
+  {
+    "id": 23,
+    "title": "Sleek Modern Laptop with Ambient Lighting",
+    "price": 43,
+    "image": "https://i.imgur.com/OKn1KFI.jpeg"
+  },
+  {
+    "id": 24,
+    "title": "Sleek Modern Laptop for Professionals",
+    "price": 97,
+    "image": "https://i.imgur.com/ItHcq7o.jpeg"
+  },
+  {
+    "id": 25,
+    "title": "Stylish Red & Silver Over-Ear Headphones",
+    "price": 39,
+    "image": "https://i.imgur.com/YaSqa06.jpeg"
+  },
+  {
+    "id": 26,
+    "title": "Sleek Mirror Finish Phone Case",
+    "price": 27,
+    "image": "https://i.imgur.com/yb9UQKL.jpeg"
+  },
+  {
+    "id": 27,
+    "title": "Sleek Smartwatch with Vibrant Display",
+    "price": 16,
+    "image": "https://i.imgur.com/LGk9Jn2.jpeg"
+  },
+  {
+    "id": 28,
+    "title": "Sleek Modern Leather Sofa",
+    "price": 53,
+    "image": "https://i.imgur.com/Qphac99.jpeg"
+  },
+  {
+    "id": 29,
+    "title": "Mid-Century Modern Wooden Dining Table",
+    "price": 24,
+    "image": "https://i.imgur.com/DMQHGA0.jpeg"
+  },
+  {
+    "id": 30,
+    "title": "Elegant Golden-Base Stone Top Dining Table",
+    "price": 66,
+    "image": "https://i.imgur.com/NWIJKUj.jpeg"
+  },
+  {
+    "id": 31,
+    "title": "Modern Elegance Teal Armchair",
+    "price": 25,
+    "image": "https://i.imgur.com/6wkyyIN.jpeg"
+  }
+]
