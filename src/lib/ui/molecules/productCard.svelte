@@ -1,0 +1,41 @@
+<script lang="ts">
+  import type { ProductEntity } from '$lib/stores/product.store';
+  import { imageFallback } from '$lib/helper/imageFallback';
+  import FavoriteButton from '../atoms/favoriteButton.svelte';
+  import CartButton from '../atoms/cartButton.svelte';
+
+  export let item: ProductEntity;
+
+  let itemInCart = false;
+</script>
+
+<div class="w-full text-gray-700">
+  <div class="group relative bg-gray-100 h-40 rounded-md overflow-hidden">
+    <a href="/product/{item.id}">
+      <img
+        src={item.images[0]}
+        on:error={imageFallback}
+        class="h-40 z-0 w-full object-cover absolute transition duration-500 ease-in-out group-hover:scale-110"
+        alt="{item.title} image"
+      />
+    </a>
+    <FavoriteButton id={item.id} class="absolute top-0 right-0 bg-white !p-1 mt-2 mr-2" />
+  </div>
+
+  <div class="flex justify-between gap-4 font-semibold mt-4">
+    <span class="line-clamp-2">{item.title}</span>
+    <span class="flex text-lg text-green-600">
+      <span class="text-xs">$</span>
+      {item.price}
+    </span>
+  </div>
+
+  <div class="flex text-xs gap-2">
+    <span>{item.category.name}</span><span>-</span>
+    <p class="truncate">
+      {item.description}
+    </p>
+  </div>
+
+  <CartButton id={item.id} />
+</div>

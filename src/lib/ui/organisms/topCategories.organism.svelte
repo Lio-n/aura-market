@@ -1,14 +1,14 @@
 <script>
   const TopCategoriesContent = [
-    { to: '/product/category/clothes', name: 'Clothes', thumbnail: '/products/top_clothes.jpg' },
-    { to: '/product/category/shoes', name: 'Shoes', thumbnail: '/products/top_shoes.jpg' },
+    { to: '/product/category/Clothes', name: 'Clothes', thumbnail: '/products/top_clothes.jpg' },
+    { to: '/product/category/Shoes', name: 'Shoes', thumbnail: '/products/top_shoes.jpg' },
     {
-      to: '/product/category/miscellaneous',
+      to: '/product/category/Miscellaneous',
       name: 'Miscellaneous',
       thumbnail: '/products/top_miscellaneous.jpeg',
     },
     {
-      to: '/product/category/electronics',
+      to: '/product/category/Electronics',
       name: 'Electronics',
       thumbnail: '/products/top_electronics.jpg',
     },

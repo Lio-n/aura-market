@@ -1,15 +1,15 @@
 <script>
   const CategoriesContent = [
-    { to: '/product/category/clothes', name: 'Clothes', availables: 94, thumbnail: '/products/clothes.jpeg' },
-    { to: '/product/category/shoes', name: 'Shoes', availables: 94, thumbnail: '/products/shoes.jpeg' },
+    { to: '/product/category/Clothes', name: 'Clothes', availables: 94, thumbnail: '/products/clothes.jpeg' },
+    { to: '/product/category/Shoes', name: 'Shoes', availables: 94, thumbnail: '/products/shoes.jpeg' },
     {
-      to: '/product/category/miscellaneous',
+      to: '/product/category/Miscellaneous',
       name: 'Miscellaneous',
       availables: 94,
       thumbnail: '/products/miscellaneous.jpeg',
     },
     {
-      to: '/product/category/electronics',
+      to: '/product/category/Electronics',
       name: 'Electronics',
       availables: 94,
       thumbnail: '/products/electronics.jpeg',

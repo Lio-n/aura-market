@@ -1,6 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import DropdownVertical from './dropdownVertical.svelte';
+  import { favoriteStore } from '$lib/stores/favorites.store';
+  import Icon from '$lib/ui/atoms/icon.svelte';
+  import { cartStore } from '$lib/stores/cart.store';
+  import { userStore } from '$lib/stores/user.store';
+  import { checkRole } from '$lib/rbacUtils';
+  import { ROLES } from '../../constants';
+  import { goto } from '$app/navigation';
 
   let showContent = false;
   let sideMenuRef: HTMLDivElement | undefined;
@@ -19,20 +26,27 @@
   });
 
   const dropdownContent = [
-    { to: '/product/category/clothes', name: 'Clothes' },
-    { to: '/product/category/shoes', name: 'Shoes' },
-    { to: '/product/category/miscellaneous', name: 'Miscellaneous' },
-    { to: '/product/category/electronics', name: 'Electronics' },
+    { to: '/product/category/Clothes', name: 'Clothes' },
+    { to: '/product/category/Shoes', name: 'Shoes' },
+    { to: '/product/category/Miscellaneous', name: 'Miscellaneous' },
+    { to: '/product/category/Electronics', name: 'Electronics' },
   ];
+
+  const signOut = () => {
+    document.cookie = 'access_token=;';
+    $userStore = null;
+    goto('/');
+  };
+
+  $: isAdmin = $userStore && checkRole($userStore, ROLES.ADMIN);
+  $: isCustomer = $userStore && checkRole($userStore, ROLES.CUSTOMER);
 </script>
 
 <div>
-  <img
-    src="/icons/burger.svg"
-    alt="menu-icon"
-    aria-hidden="true"
+  <Icon
+    name="burger"
+    class="transition-colors stroke-gray-950 stroke-2 md:hidden cursor-pointer"
     on:click={showSideMenu}
-    class="md:hidden cursor-pointer w-6"
   />
 
   {#if showContent}
@@ -40,11 +54,9 @@
       bind:this={sideMenuRef}
       class="p-4 min-w-48 bg-white left-0 top-0 bottom-0 h-screen shadow md:hidden fixed z-10"
     >
-      <img
-        src="/icons/arrow-left.svg"
-        class="bg-white p-0.5 shadow w-6 absolute right-[-10px] top-4 rounded-full cursor-pointer"
-        alt="arrow-circle-icon"
-        aria-hidden="true"
+      <Icon
+        name="arrow-left"
+        class="stroke-gray-950 bg-white p-1 shadow absolute size-6 stroke-2 right-[-10px] top-4 rounded-full cursor-pointer"
         on:click={showSideMenu}
       />
 
@@ -53,20 +65,91 @@
 
         <p class="font-semibold text-xs mb-2">Navigation</p>
 
+        {#if $userStore}
+          {#if isAdmin}
+            <a
+              class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+              href="/admin/dashboard"
+              ><Icon name="window" class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950" />
+              Dashboard</a
+            >
+          {/if}
+
+          {#if isCustomer}
+            <a
+              class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+              href="/account"
+              ><Icon
+                name="user"
+                class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950"
+              />Account</a
+            >
+          {/if}
+
+          <button
+            on:click={signOut}
+            class="w-full font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+            ><Icon
+              name="sign-out"
+              class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950"
+            />Sign Out</button
+          >
+        {:else}
+          <a
+            class="w-full font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+            href="/login"
+            ><Icon
+              name="sign-in"
+              class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950"
+            />Sign in</a
+          >
+        {/if}
+
         <a
           class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
-          href="/account"><img src="/icons/user.svg" class={`w-4`} alt="user icon" />Account</a
+          href="/favorite"
         >
+          <span class="relative">
+            <Icon
+              name="heart-outline"
+              class="transition-colors fill-none stroke-gray-700 stroke-2 hover:stroke-gray-900 group"
+            />
+            {#if $favoriteStore.length}
+              <div
+                class="absolute font-bold -top-[5px] -left-[5px] bg-red-500 rounded-full px-1 text-white text-[.5rem]"
+              >
+                {$favoriteStore.length}
+              </div>
+            {/if}
+          </span>
+          Favorite
+        </a>
+
         <a
           class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
-          href="/cart"><img src="/icons/shopping-cart.svg" class={`w-4`} alt="user icon" />Cart</a
+          href="/cart"
+        >
+          <span class="relative">
+            <Icon
+              name="shopping-bag"
+              class="transition-colors fill-none stroke-gray-700 stroke-2 hover:stroke-gray-950"
+            />
+            {#if $cartStore.length}
+              <div
+                class="absolute font-bold -top-[5px] -left-[5px] bg-red-500 rounded-full px-1 text-white text-[.5rem]"
+              >
+                {$cartStore.length}
+              </div>
+            {/if}
+          </span>
+          Cart</a
         >
 
         <DropdownVertical name="Categories" content={dropdownContent} addTagIcon />
         <a
           href="/#deals"
           class="p-2 font-medium text-xs flex gap-1 items-center text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md"
-          ><img src="/icons/sparkles.svg" class={`w-4`} alt="user icon" />Deals</a
+          ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 hover:stroke-gray-950" />Deals</a
         >
       </div>
     </div>

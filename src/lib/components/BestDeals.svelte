@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
-  import CardProduct from '$lib/ui/molecules/cardProduct.svelte';
+  import ProductCard from '$lib/ui/molecules/productCard.svelte';
   import { onMount } from 'svelte';
   import Loading from './loading.svelte';
   import type { ProductEntity } from '$lib/stores/product.store';
@@ -38,7 +38,7 @@
         class="grid grid-cols-[repeat(8,_minmax(10rem,_1fr))] md:grid-cols-[repeat(8,_minmax(10rem,_1fr))] pb-4 overflow-x-auto gap-4"
       >
         {#each data as item}
-          <CardProduct {item} />
+          <ProductCard {item} />
         {/each}
       </ul>
     {/if}

@@ -1,22 +1,13 @@
 <script>
   import '../app.css';
-  import Footer from '$lib/components/Footer.svelte';
-  import Header from '$lib/components/Header.svelte';
-  import Services from '$lib/ui/organisms/services.organism.svelte';
+  import { layoutStore } from '$lib/stores/layout.store';
+  import MainLayout from '$lib/ui/template/mainLayout.svelte';
+
+  $layoutStore = MainLayout;
 </script>
 
-<svelte:head>
-  <title>AuraMarket</title>
-</svelte:head>
-
-<Header />
-
-<main class="max-w-screen-lg my-0 mx-auto">
-  <slot />
-
-  <Services />
-</main>
-
-<div class="py-4"></div>
-
-<Footer />
+{#if $layoutStore}
+  <svelte:component this={$layoutStore}>
+    <slot />
+  </svelte:component>
+{/if}

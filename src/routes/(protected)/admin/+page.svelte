@@ -2,7 +2,7 @@
   import { checkPermissions } from '$lib/rbacUtils';
   import { productsStore } from '$lib/stores/product.store';
   import { userStore } from '$lib/stores/user.store';
-  import { PERMISSIONS } from '../../../../constants';
+  import { PERMISSIONS } from '../../../constants';
 
   $: canCreateProducts = $userStore && checkPermissions($userStore, PERMISSIONS.CREATE_PRODUCTS);
   $: canDeleteProducts = $userStore && checkPermissions($userStore, PERMISSIONS.DELETE_PRODUCTS);

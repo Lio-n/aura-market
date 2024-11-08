@@ -1,9 +1,10 @@
 <script lang="ts">
   import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
-  import CardProduct from '$lib/ui/molecules/cardProduct.svelte';
+  import ProductCard from '$lib/ui/molecules/productCard.svelte';
   import { onMount } from 'svelte';
   import Loading from './loading.svelte';
   import type { ProductEntity } from '$lib/stores/product.store';
+  import { codeByCategory } from '../../constants';
 
   onMount(async () => {
     data = await GetMostSellingProductsByCategory(codeByCategory.Clothes);
@@ -12,14 +13,7 @@
   let hasError: string;
   let isLoading = true;
   let data: Array<ProductEntity> | null = null;
-  const codeByCategory: {
-    [key: string]: number;
-  } = {
-    Clothes: 1,
-    Electronics: 2,
-    Miscellaneous: 5,
-    Shoes: 4,
-  };
+
   const cache: { [key: number]: Array<ProductEntity> } = {};
   let currentCategoryName = 'Clothes';
 
@@ -83,7 +77,7 @@
     {#if data}
       <ul class="grid grid-cols-[repeat(4,_minmax(10rem,_1fr))] pb-4 overflow-x-auto gap-x-4 gap-y-6">
         {#each data as item}
-          <CardProduct {item} />
+          <ProductCard {item} />
         {/each}
       </ul>
     {/if}
