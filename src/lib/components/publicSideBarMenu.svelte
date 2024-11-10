@@ -8,6 +8,7 @@
   import { checkRole } from '$lib/rbacUtils';
   import { ROLES } from '../../constants';
   import { goto } from '$app/navigation';
+  import ButtonSignOut from '$lib/ui/atoms/buttonSignOut.svelte';
 
   let showContent = false;
   let sideMenuRef: HTMLDivElement | undefined;
@@ -32,12 +33,6 @@
     { to: '/product/category/Electronics', name: 'Electronics' },
   ];
 
-  const signOut = () => {
-    document.cookie = 'access_token=;';
-    $userStore = null;
-    goto('/');
-  };
-
   $: isAdmin = $userStore && checkRole($userStore, ROLES.ADMIN);
   $: isCustomer = $userStore && checkRole($userStore, ROLES.CUSTOMER);
 </script>
@@ -56,7 +51,7 @@
     >
       <Icon
         name="arrow-left"
-        class="stroke-gray-950 bg-white p-1 shadow absolute size-6 stroke-2 right-[-10px] top-4 rounded-full cursor-pointer"
+        class="stroke-gray-950 bg-white p-1 shadow absolute size-6 stroke-2 right-[-10px] top-4 rounded-md cursor-pointer"
         on:click={showSideMenu}
       />
 
@@ -86,14 +81,7 @@
             >
           {/if}
 
-          <button
-            on:click={signOut}
-            class="w-full font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
-            ><Icon
-              name="sign-out"
-              class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950"
-            />Sign Out</button
-          >
+          <ButtonSignOut />
         {:else}
           <a
             class="w-full font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"

@@ -8,7 +8,7 @@
   import { ROLES } from '../../constants';
   import Dropdown from './dropdown.svelte';
   import SearchProduct from './searchProduct.svelte';
-  import SideBarManu from './sideBarMenu.svelte';
+  import SideBarManu from './publicSideBarMenu.svelte';
 
   const dropdownContent = [
     { to: '/product/category/clothes', name: 'Clothes' },
@@ -28,7 +28,7 @@
 </script>
 
 <header
-  class="relative z-10 flex gap-2 md:gap-4 place-items-center py-2 px-4 md:py-4 md:px-6 sticky top-0 bg-white justify-between w-full"
+  class="z-10 flex gap-2 md:gap-4 place-items-center py-2 px-4 md:py-4 md:px-6 sticky top-0 bg-white justify-between w-full"
 >
   <div class="md:hidden">
     <SideBarManu />

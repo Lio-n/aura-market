@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
-import { codeByCategory } from '../../../../constants';
+import { codeByCategory } from '../../../../../constants';
 
 export const load: PageServerLoad = async ({ params }) => {
   const category = params.slug;

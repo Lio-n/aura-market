@@ -1,6 +1,6 @@
 <script>
   import Footer from '$lib/components/Footer.svelte';
-  import Header from '$lib/components/Header.svelte';
+  import Header from '$lib/components/publicHeader.svelte';
   import Services from '$lib/ui/organisms/services.organism.svelte';
 </script>
 

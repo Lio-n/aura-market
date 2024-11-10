@@ -1,4 +1,4 @@
 import { writable } from 'svelte/store';
-import MainLayout from '$lib/ui/template/mainLayout.svelte';
+import PublicLayout from '$lib/ui/template/publicLayout.svelte';
 
-export const layoutStore = writable(MainLayout);
+export const layoutStore = writable(PublicLayout);

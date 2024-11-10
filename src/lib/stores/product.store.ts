@@ -15,4 +15,10 @@ export interface ProductEntity {
   images: string[];
 }
 
+export interface ProductInventory extends Pick<ProductEntity, 'id' | 'title' | 'category' | 'images'> {
+  SKU: string;
+  stock: number;
+  price: number;
+}
+
 export const productsStore = writable<ProductEntity[]>([]);

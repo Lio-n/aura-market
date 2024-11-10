@@ -8,7 +8,7 @@ export function load({ locals }) {
   const user = locals.user;
   const isAdmin = user && checkRole(user, ROLES.ADMIN);
 
-  if (!isAdmin) {
-    redirect(307, '/unauthorized');
-  }
+  // if (!isAdmin) {
+  //   redirect(307, '/unauthorized');
+  // }
 }
