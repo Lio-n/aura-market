@@ -15,6 +15,19 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
+"@canutin/svelte-currency-input@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@canutin/svelte-currency-input/-/svelte-currency-input-0.13.0.tgz#1a968fc24838fad98374a860177bbbf0dff32355"
+  integrity sha512-L4ZM3yO4uFDUnTZCpc88t6Fc8tNYsHC03d+2qHAQEVmzdRqJMHaP+nZVWLqb3j8aEWZgJUyLvuDJEJ2VwnTriQ==
+  optionalDependencies:
+    "@cloudflare/workerd-linux-64" "^1.20240909.0"
+    "@rollup/rollup-linux-x64-gnu" "^4.21.3"
+
+"@cloudflare/workerd-linux-64@^1.20240909.0":
+  version "1.20241112.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workerd-linux-64/-/workerd-linux-64-1.20241112.0.tgz#81a13aec4bd401e6efec0a29bcf160b00520e10a"
+  integrity sha512-flThiCPdKRrfYFISdp16XODT/iqt5WU2xhMCsvreI9W9Q4XUa0aHzUSVyHesMd1NkwWGBFs8QRzzuaBnyKy4RQ==
+
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
   resolved "https://registry.yarnpkg.com/@esbuild/aix-ppc64/-/aix-ppc64-0.21.5.tgz#c7184a326533fcdf1b8ee0733e21c713b975575f"
@@ -279,6 +292,11 @@
   version "4.24.2"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.24.2.tgz#4cc3a4f31920bdb028dbfd7ce0e972a17424a63c"
   integrity sha512-jOG/0nXb3z+EM6SioY8RofqqmZ+9NKYvJ6QQaa9Mvd3RQxlH68/jcB/lpyVt4lCiqr04IyaC34NzhUqcXbB5FQ==
+
+"@rollup/rollup-linux-x64-gnu@^4.21.3":
+  version "4.25.0"
+  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.25.0.tgz#dfcceebc5ccac7fc2db19471996026258c81b55f"
+  integrity sha512-ThcnU0EcMDn+J4B9LD++OgBYxZusuA7iemIIiz5yzEcFg04VZFzdFjuwPdlURmYPZw+fgVrFzj4CA64jSTG4Ig==
 
 "@rollup/rollup-linux-x64-musl@4.24.2":
   version "4.24.2"

@@ -5,7 +5,7 @@
   export let variant: 'outline' | 'solid' | 'ghost' = 'solid';
   export let size: 'small' | 'medium' = 'small';
   export let icon: Icons | null = null;
-  export let text;
+  export let text = '';
 
   const custom_variants = {
     outline: 'bg-white text-gray-950 hover:text-white hover:bg-gray-950 group',
@@ -32,7 +32,7 @@
   ]} {custom_size[size]} {$$props.class}"
 >
   {#if icon}
-    <Icon name={icon} class="transition-colors size-4 sm:size-6 {custom_variants_icon[variant]}" />
+    <Icon name={icon} class="transition-colors size-4 {custom_variants_icon[variant]}" />
   {/if}
   {text}
 </button>

@@ -1,31 +1,39 @@
 <script lang="ts">
-  import DraggableModal from '$lib/components/draggableModal.svelte';
-  import TextField from '../atoms/textField.svelte';
   import Button from '../atoms/button.svelte';
-  import Icon from '../atoms/icon.svelte';
+  import TextField from '../atoms/textField.svelte';
+  import { randomNumbers, randomSKU } from '$lib/helper/randomSKU';
+  import DraggableModal from '$lib/components/draggableModal.svelte';
   import { productsInventoryStore, type ProductInventory } from '$lib/stores/product.store';
 
-  let { product, onClose }: { product: ProductInventory; onClose: () => void } = $props();
-  let in_edit = $state(false);
+  let { onClose }: { onClose: () => void } = $props();
+  let SKU_VALUE = randomSKU();
 
   const handleSubmit = (e: Event) => {
     const formData = new FormData(e.target as HTMLFormElement);
     const formDataObject = Object.fromEntries(formData.entries()) as unknown as ProductInventory;
 
     const parsedProduct: ProductInventory = {
-      ...product,
+      id: randomNumbers(),
       title: formDataObject.title,
+      images: ['/products/clothes.jpeg'],
       description: formDataObject.description,
+      category: {
+        id: 1,
+        name: 'Laptop',
+        image: '/products/clothes.jpeg',
+      },
+      SKU: SKU_VALUE,
       stock: formDataObject.stock,
       price: formDataObject.price,
     };
 
-    $productsInventoryStore = [parsedProduct, ...$productsInventoryStore.filter((item) => item.id !== product.id)];
+    $productsInventoryStore = [parsedProduct, ...$productsInventoryStore];
 
-    window.alert('Item Updated!');
-
-    in_edit = false;
+    window.alert('New Item Created!');
+    onClose();
   };
+
+  console.log('productsInventoryStore : ', $productsInventoryStore);
 </script>
 
 <DraggableModal
@@ -33,32 +41,16 @@
   resize_handler="resize-create-product-preview"
   {onClose}
 >
-  <div class="mt-8 mx-8 flex justify-between">
-    <h3 class="text-2xl font-semibold text-gray-950">{in_edit ? 'Edit' : 'Preview'} Product</h3>
+  <h3 class="text-2xl font-semibold text-gray-950 mt-8 ml-8">Add Product</h3>
 
-    <Button
-      on:click={() => (in_edit = !in_edit)}
-      text={in_edit ? 'Cancel Edit' : 'Edit'}
-      icon="pencil"
-      class="!w-fit px-4"
-      variant="outline"
-    />
-  </div>
-
-  <form on:submit|preventDefault={handleSubmit} class="h-full m-8">
-    <div class="w-full mb-8">
+  <div class="h-full m-8">
+    <form on:submit|preventDefault={handleSubmit} class="w-full mb-8">
       <div class="space-y-4">
         <div>
           <span class="font-medium text-lg"> Description </span>
           <div class="mt-2 space-y-2 p-3 border-2 rounded">
-            <TextField name="title" label="Title" value={product.title} preview={!in_edit} />
-            <TextField
-              name="description"
-              label="Description"
-              type="textarea"
-              value={product.description}
-              preview={!in_edit}
-            />
+            <TextField name="title" label="Title" />
+            <TextField name="description" label="Description" type="textarea" />
           </div>
         </div>
 
@@ -81,24 +73,22 @@
         <div>
           <span class="font-medium text-lg"> Inventory </span>
           <div class="mt-2 h-40 space-x-2 p-3 border-2 rounded grid grid-cols-2 h-fit">
-            <TextField name="stock" label="Stock" type="number" value={product.stock} preview={!in_edit} />
-            <TextField name="sku" label="SKU" disabled value={product.SKU} preview={!in_edit} />
+            <TextField name="stock" label="Stock" type="number" />
+            <TextField name="sku" label="SKU" value={SKU_VALUE} disabled />
           </div>
         </div>
 
         <div>
           <span class="font-medium text-lg"> Pricing </span>
           <div class="mt-2 h-40 space-x-2 p-3 border-2 rounded grid h-fit">
-            <TextField name="price" label="Pricing" type="currency" value={product.price} preview={!in_edit} />
+            <TextField name="price" label="Pricing" type="currency" />
           </div>
         </div>
       </div>
-    </div>
 
-    {#if in_edit}
       <div class="flex justify-end mt-4">
-        <Button text="Save Product" class="mt-4 !w-fit px-6 py-3" />
+        <Button text="Add Product" class="mt-4 !w-fit px-6 py-3" />
       </div>
-    {/if}
-  </form>
+    </form>
+  </div>
 </DraggableModal>

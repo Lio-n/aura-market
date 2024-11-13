@@ -13,12 +13,14 @@ export const load: PageServerLoad = async ({ params }) => {
     id: 1,
     title: 'Apple MacBook Pro 17',
     images: ['/products/clothes.jpeg'],
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora iusto earum incidunt. Sequi excepturi magni in esse. Repellat, quam eaque.',
     category: {
       id: 1,
       name: 'Laptop',
       image: '/products/clothes.jpeg',
     },
-    SKU: '	DEF-456-BLU',
+    SKU: 'DEF-456-BLU',
     stock: 120,
     price: 2.5,
   };

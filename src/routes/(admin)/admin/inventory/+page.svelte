@@ -1,24 +1,31 @@
 <script lang="ts">
-  import type { ProductEntity, ProductInventory } from '$lib/stores/product.store.js';
+  import { productsInventoryStore, type ProductInventory } from '$lib/stores/product.store';
+  import Button from '$lib/ui/atoms/button.svelte';
   import Icon from '$lib/ui/atoms/icon.svelte';
+  import CreateProductModal from '$lib/ui/organisms/createProductModal.svelte';
   import ProductPreview from '$lib/ui/organisms/productPreview.svelte';
   import Table from '$lib/ui/organisms/table.svelte';
-  import { draggable } from '@neodrag/svelte';
-  import { onMount } from 'svelte';
 
-  let { data } = $props();
+  // let { data } = $props();
   let showDetails = $state(false);
   let selectedProduct = $state<ProductInventory | undefined>(undefined);
 
   const onSelectProduct = (id: number) => {
-    selectedProduct = data.products.find((e) => e.id === id);
-    console.log(selectedProduct);
+    selectedProduct = tableBody.find((e) => e.id === id);
   };
 
   const toggleInventoryDetails = () => (showDetails = !showDetails);
 
+  let tableBody = $state($productsInventoryStore);
+
+  $effect(() => {
+    productsInventoryStore.subscribe((products) => {
+      tableBody = products;
+      console.log('productsInventoryStore:', products);
+    });
+  });
+
   const tableHeads = ['Product', 'Category', 'SKU', 'Stock', 'Price'];
-  const tableBody: Array<ProductInventory> = data.products;
   const inventoryDetails = [
     {
       title: 'Total Inventory volumen',
@@ -33,6 +40,10 @@
       amount: '6,62',
     },
   ];
+
+  const onCloseModal = () => (selectedProduct = undefined);
+  let showCreateProductModal = $state(false);
+  const toggleCreateProductModal = () => (showCreateProductModal = !showCreateProductModal);
 </script>
 
 <div class="flex relative">
@@ -60,7 +71,17 @@
       </div>
     </header>
 
-    <section class="py-4 grid max-h-[80vh] md:max-h-[60vh] xl:max-h-full overflow-auto">
+    <section class="pb-4 grid max-h-[80vh] md:max-h-[60vh] overflow-auto no-scrollbar">
+      <div class="flex justify-between sticky top-0 z-5 bg-white py-2 shadow">
+        <div class="space-x-4 flex">
+          <div class="bg-blue-300 rounded p-2 w-8"></div>
+          <div class="bg-red-300 rounded p-2 w-8"></div>
+          <div class="bg-green-300 rounded p-2 w-8"></div>
+        </div>
+
+        <Button variant="ghost" icon="plus" class="!w-fit px-2 hover:bg-gray-100" on:click={toggleCreateProductModal} />
+      </div>
+
       <Table {tableHeads}>
         {#each tableBody as item}
           <tr
@@ -75,14 +96,19 @@
             <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> {item.category.name} </td>
             <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> {item.SKU} </td>
             <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> {item.stock} </td>
-            <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> {item.price} </td>
+            <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> ${item.price} </td>
           </tr>
         {/each}
       </Table>
     </section>
   </div>
 
-  <ProductPreview product={selectedProduct} />
+  {#if selectedProduct}
+    <ProductPreview product={selectedProduct} onClose={onCloseModal} />
+  {/if}
 
+  {#if showCreateProductModal}
+    <CreateProductModal onClose={toggleCreateProductModal} />
+  {/if}
   <div class="max-md:hidden border-l-[1px] w-80"></div>
 </div>

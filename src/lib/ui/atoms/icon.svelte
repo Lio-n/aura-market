@@ -18,7 +18,9 @@
     | 'gear'
     | 'bar-filter'
     | 'dots-6'
-    | 'x-mark';
+    | 'x-mark'
+    | 'pencil'
+    | 'plus';
 </script>
 
 <script lang="ts">
@@ -27,6 +29,14 @@
   export let height = '1rem';
   export let focusable: string | number | null | undefined = undefined;
   let icons = {
+    plus: {
+      box: 24,
+      svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />`,
+    },
+    pencil: {
+      box: 24,
+      svg: `<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />`,
+    },
     'x-mark': {
       box: 24,
       svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />`,

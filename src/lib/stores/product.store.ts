@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 
 type ProductCategory = {
   id: number;
@@ -15,10 +15,13 @@ export interface ProductEntity {
   images: string[];
 }
 
-export interface ProductInventory extends Pick<ProductEntity, 'id' | 'title' | 'category' | 'images'> {
+export interface ProductInventory extends Pick<ProductEntity, 'id' | 'title' | 'category' | 'images' | 'description'> {
   SKU: string;
   stock: number;
   price: number;
 }
 
-export const productsStore = writable<ProductEntity[]>([]);
+export const productsInventoryStore = writable<ProductInventory[]>([]);
+export const productsStore = derived(productsInventoryStore, ($productsInventoryStore: ProductInventory[]) =>
+  $productsInventoryStore.map(({ SKU, stock, ...rest }) => rest)
+);
