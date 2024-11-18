@@ -6,10 +6,11 @@
   export let size: 'small' | 'medium' = 'small';
   export let icon: Icons | null = null;
   export let text = '';
+  export let disabled: boolean = false;
 
   const custom_variants = {
     outline: 'bg-white text-gray-950 hover:text-white hover:bg-gray-950 group',
-    ghost: 'bg-white text-gray-950 group border-transparent',
+    ghost: `bg-white text-gray-950 group border-transparent`,
     solid: 'bg-gray-950 text-white hover:bg-white hover:text-gray-950 group',
   };
 
@@ -27,6 +28,10 @@
 
 <button
   on:click
+  {...$$props}
+  {disabled}
+  class:opacity-50={disabled}
+  class:cursor-not-allowed={disabled}
   class="flex gap-2 justify-center items-center transition-colors rounded-md w-full font-semibold border-2 border-gray-950 {custom_variants[
     variant
   ]} {custom_size[size]} {$$props.class}"

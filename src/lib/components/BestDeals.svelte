@@ -1,31 +1,23 @@
 <script lang="ts">
-  import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
   import ProductCard from '$lib/ui/molecules/productCard.svelte';
   import { onMount } from 'svelte';
   import Loading from './loading.svelte';
   import type { ProductEntity } from '$lib/stores/product.store';
+  import { ProductService, type ApiError } from '$lib/services/productService';
 
-  let hasError: string;
+  let error: ApiError | null;
   let isLoading = true;
   let data: Array<ProductEntity> | null = null;
 
-  const GetBestDealsProducts = async () => {
-    try {
-      const res = await fetch(PUBLIC_PLATZI_FAKE_STORE_API_V1 + 'products/?offset=0&limit=8');
-      return await res.json();
-    } catch (error) {
-      hasError = 'Something goes wrong!';
-    } finally {
-      isLoading = false;
-    }
-  };
-
   onMount(async () => {
-    data = await GetBestDealsProducts();
+    const res = await ProductService.getProducts('/?offset=0&limit=8');
+    data = res?.data;
+    error = res?.error;
+    isLoading = false;
   });
 </script>
 
-{#if !hasError}
+{#if !error?.message}
   <section class="p-4 md:py-8 md:px-12 {$$restProps.class || ''}">
     <h2 class="text-xl mb-4 font-bold text-gray-900">Todays Best Deals For You!</h2>
 

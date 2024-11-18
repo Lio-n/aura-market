@@ -16,7 +16,7 @@
       <!-- // Change name header to another. -->
     </div>
 
-    <div class="pl-4 md:pl-8">
+    <div class="px-4 md:px-8">
       <slot />
     </div>
   </div>

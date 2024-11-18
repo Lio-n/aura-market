@@ -9,12 +9,13 @@
   import Dropdown from './dropdown.svelte';
   import SearchProduct from './searchProduct.svelte';
   import SideBarManu from './publicSideBarMenu.svelte';
+  import { categoryStore } from '$lib/stores/product.store';
 
   const dropdownContent = [
-    { to: '/product/category/clothes', name: 'Clothes' },
-    { to: '/product/category/shoes', name: 'Shoes' },
-    { to: '/product/category/miscellaneous', name: 'Miscellaneous' },
-    { to: '/product/category/electronics', name: 'Electronics' },
+    { to: `/product/category/${$categoryStore.Clothes.name}`, name: $categoryStore.Clothes.name },
+    { to: `/product/category/${$categoryStore.Electronics.name}`, name: $categoryStore.Electronics.name },
+    { to: `/product/category/${$categoryStore.Miscellaneous.name}`, name: $categoryStore.Miscellaneous.name },
+    { to: `/product/category/${$categoryStore.Shoes.name}`, name: $categoryStore.Shoes.name },
   ];
 
   const signOut = () => {

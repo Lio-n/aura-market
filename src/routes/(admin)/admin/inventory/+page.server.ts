@@ -1,36 +1,62 @@
-// import { error } from '@sveltejs/kit';
-import type { ProductInventory } from '$lib/stores/product.store';
-import type { PageServerLoad } from './$types';
-// import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
+import { randomNumbers, randomSKU } from '$lib/helper/randomSKU';
+import { initialCategory, type CATEGORY, type ProductInventory } from '$lib/stores/product.store';
+import type { Actions } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ params }) => {
-  // const res = await fetch(
-  //   PUBLIC_PLATZI_FAKE_STORE_API_V1 + `products/?offset=0&limit=20`
-  // );
-  // const products = await res.json();
+export const actions: Actions = {
+  createProduct: async ({ request }) => {
+    const formData = await request.formData();
 
-  const mockProduct: ProductInventory = {
-    id: 1,
-    title: 'Apple MacBook Pro 17',
-    images: ['/products/clothes.jpeg'],
-    description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora iusto earum incidunt. Sequi excepturi magni in esse. Repellat, quam eaque.',
-    category: {
-      id: 1,
-      name: 'Laptop',
-      image: '/products/clothes.jpeg',
-    },
-    SKU: 'DEF-456-BLU',
-    stock: 120,
-    price: 2.5,
-  };
-  const products = Array.from({ length: 15 }, (_, i) => ({
-    ...mockProduct,
-    title: 'Apple MacBook Pro 17 - ' + i,
-    id: i,
-  }));
+    const formDataObject = Object.fromEntries(formData.entries()) as unknown as Omit<
+      ProductInventory,
+      'category' | 'image'
+    > & {
+      category: CATEGORY;
+      specification_brand: string;
+      specification_model: string;
+      uploadedImages: string;
+    };
 
-  return {
-    products,
-  };
+    const category = initialCategory[formDataObject.category];
+
+    const parsedProduct: ProductInventory = {
+      id: randomNumbers(),
+      title: formDataObject.title,
+      images: JSON.parse(formDataObject.uploadedImages),
+      description: formDataObject.description,
+      category,
+      SKU: randomSKU(),
+      stock: formDataObject.stock,
+      price: formDataObject.price,
+      specifications: { brand: formDataObject.specification_brand, model: formDataObject.specification_model },
+    };
+
+    return { success: true, product: parsedProduct };
+  },
+  updateProduct: async ({ request }) => {
+    const formData = await request.formData();
+
+    const formDataObject = Object.fromEntries(formData.entries()) as unknown as Omit<
+      ProductInventory,
+      'category' | 'image' | 'id' | 'SKU'
+    > & {
+      category: CATEGORY;
+      specification_brand: string;
+      specification_model: string;
+      uploadedImages: string;
+    };
+
+    const category = initialCategory[formDataObject.category];
+
+    const parsedProduct: Omit<ProductInventory, 'id' | 'SKU'> = {
+      title: formDataObject.title,
+      images: JSON.parse(formDataObject.uploadedImages),
+      description: formDataObject.description,
+      category,
+      stock: formDataObject.stock,
+      price: formDataObject.price,
+      specifications: { brand: formDataObject.specification_brand, model: formDataObject.specification_model },
+    };
+
+    return { success: true, product: parsedProduct };
+  },
 };

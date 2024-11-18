@@ -3,9 +3,9 @@
   export let tableBody: Array<ArrayLike<{ [key: string]: string | number }>> | null = null;
 </script>
 
-<div class="relative overflow-auto">
+<div class="relative">
   <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+    <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
       <tr>
         {#each tableHeads as item}
           <th scope="col" class="pl-2 py-3"> {item} </th>

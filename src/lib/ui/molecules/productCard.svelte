@@ -15,7 +15,7 @@
       <img
         src={item.images[0]}
         on:error={imageFallback}
-        class="h-40 z-0 w-full object-cover absolute transition duration-500 ease-in-out group-hover:scale-110"
+        class="h-40 z-0 w-full bg-gray-100 object-contain absolute transition duration-500 ease-in-out group-hover:scale-110"
         alt="{item.title} image"
       />
     </a>

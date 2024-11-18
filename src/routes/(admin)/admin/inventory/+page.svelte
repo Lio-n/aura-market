@@ -6,7 +6,6 @@
   import ProductPreview from '$lib/ui/organisms/productPreview.svelte';
   import Table from '$lib/ui/organisms/table.svelte';
 
-  // let { data } = $props();
   let showDetails = $state(false);
   let selectedProduct = $state<ProductInventory | undefined>(undefined);
 
@@ -21,7 +20,6 @@
   $effect(() => {
     productsInventoryStore.subscribe((products) => {
       tableBody = products;
-      console.log('productsInventoryStore:', products);
     });
   });
 
@@ -46,8 +44,8 @@
   const toggleCreateProductModal = () => (showCreateProductModal = !showCreateProductModal);
 </script>
 
-<div class="flex relative">
-  <div class="border-r-[1px] w-full pr-4">
+<div class="flex">
+  <div class=" w-full pr-4">
     <header class="pt-8 pb-4 border-b-[1px] w-full relative z-10">
       <span class="flex justify-between items-center mb-4">
         <h1 class="text-lg sm:text-2xl font-semibold text-gray-950">Inventory</h1>
@@ -72,7 +70,7 @@
     </header>
 
     <section class="pb-4 grid max-h-[80vh] md:max-h-[60vh] overflow-auto no-scrollbar">
-      <div class="flex justify-between sticky top-0 z-5 bg-white py-2 shadow">
+      <div class="flex justify-between bg-white py-2 shadow">
         <div class="space-x-4 flex">
           <div class="bg-blue-300 rounded p-2 w-8"></div>
           <div class="bg-red-300 rounded p-2 w-8"></div>
@@ -91,7 +89,8 @@
             <th
               scope="row"
               class="transition-colors flex items-center pl-2 py-4 font-medium text-gray-900 group-hover:bg-gray-50 whitespace-nowrap"
-              ><img src={item.images[0]} alt="{item.title} image" class="size-6 rounded-md mr-2" /> {item.title}
+              ><img src={item.images[0]} alt="{item.title} image" class="object-cover size-6 rounded-md mr-2" />
+              {item.title}
             </th>
             <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> {item.category.name} </td>
             <td class="transition-colors pl-2 py-4 group-hover:bg-gray-50"> {item.SKU} </td>
@@ -110,5 +109,4 @@
   {#if showCreateProductModal}
     <CreateProductModal onClose={toggleCreateProductModal} />
   {/if}
-  <div class="max-md:hidden border-l-[1px] w-80"></div>
 </div>

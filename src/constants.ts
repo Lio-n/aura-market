@@ -13,12 +13,3 @@ export const PERMISSIONS = {
 
 export type Role = (typeof ROLES)[keyof typeof ROLES];
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
-
-export const codeByCategory: {
-  [key: string]: number;
-} = {
-  Clothes: 1,
-  Electronics: 2,
-  Miscellaneous: 5,
-  Shoes: 4,
-};

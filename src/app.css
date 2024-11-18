@@ -47,3 +47,7 @@ html {
 * {
   box-sizing: border-box;
 }
+
+.toFront {
+  z-index: 9999;
+}
