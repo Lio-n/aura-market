@@ -1,44 +1,37 @@
 <script lang="ts">
   import BestDeals from '$lib/components/BestDeals.svelte';
   import Loading from '$lib/components/loading.svelte';
-  import { ProductService } from '$lib/services/productService.js';
   import { CATEGORY, productsStore, type ProductEntity } from '$lib/stores/product.store.js';
   import Breadcrumbs from '$lib/ui/molecules/breadcrumbs.svelte';
   import ProductCard from '$lib/ui/molecules/productCard.svelte';
   import { page } from '$app/stores';
-  import { onMount } from 'svelte';
 
-  // svelte-ignore non_reactive_update
-  let currCategory: string = $page.params.slug || '';
+  let { data } = $props();
+
+  let isLoading = $state(true);
+
+  const GetLocalProductsByCategory = (category: CATEGORY): Array<ProductEntity> => {
+    let productsByCategory: Array<ProductEntity> = [];
+    productsStore.subscribe((item) => {
+      productsByCategory = item.filter((i) => i.category.name === category);
+    });
+
+    isLoading = false;
+    return productsByCategory;
+  };
+
+  let currCategory: string = $state($page.params.slug);
+  let products: Array<ProductEntity> = $state([]);
 
   $effect(() => {
-    currCategory = $page.params.slug || '';
-    GetProductsByCategory(currCategory as CATEGORY);
+    currCategory = $page.params.slug;
+    products = [...GetLocalProductsByCategory($page.params.slug as CATEGORY), ...data.products];
   });
 
   const breadcrumbs = $derived([
     { to: null, name: 'category' },
     { to: null, name: currCategory?.charAt(0).toUpperCase() + currCategory?.slice(1) },
   ]);
-
-  let isLoading = $state(true);
-  let data: Array<ProductEntity> | null = $state(null);
-
-  const GetProductsByCategory = async (category: CATEGORY) => {
-    const res = await ProductService.getByCategory(currCategory as CATEGORY, '&offset=0&limit=8');
-
-    let productsByCategory: Array<ProductEntity> = [];
-    productsStore.subscribe((item) => {
-      productsByCategory = item.filter((i) => i.category.name === currCategory);
-    });
-
-    data = res?.data?.length ? [...productsByCategory, ...res?.data] : [...productsByCategory];
-    isLoading = false;
-  };
-
-  onMount(async () => {
-    await GetProductsByCategory(currCategory as CATEGORY);
-  });
 </script>
 
 <div class="mx-4">
@@ -57,9 +50,9 @@
       <Loading class="h-80" />
     {/if}
 
-    {#if data?.length}
+    {#if products?.length}
       <ul class="grid grid-cols-[repeat(4,_minmax(10rem,_1fr))] mb-8 overflow-x-auto gap-x-4 gap-y-6">
-        {#each data.slice(0, 8) as item}
+        {#each products.slice(0, 8) as item}
           <ProductCard {item} />
         {/each}
       </ul>

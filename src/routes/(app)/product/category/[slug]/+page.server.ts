@@ -1,19 +1,11 @@
-// import { error } from '@sveltejs/kit';
-// // import type { PageServerLoad } from './[slug]/$types';
-// import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
-// import { CodeByCategory } from '$lib/stores/product.store';
+import { ProductService } from '$lib/services/productService';
+import type { ProductEntity } from '$lib/stores/product.store';
+import type { PageServerLoad } from '../$types';
 
-// export const load: PageServerLoad = async ({ params }) => {
-//   const category = params.slug;
-//   if (!category) error(404);
+export const load: PageServerLoad = async ({ params }) => {
+  const { data, status, error } = await ProductService.getByCategory(params.slug);
 
-//   const res = await fetch(
-//     PUBLIC_PLATZI_FAKE_STORE_API_V1 + `products/?categoryId=${CodeByCategory[category]}&offset=0&limit=8`
-//   );
-//   const products = await res.json();
+  const products: Array<ProductEntity> | [] = data?.length ? data : [];
 
-//   return {
-//     category,
-//     products,
-//   };
-// };
+  return { products };
+};
