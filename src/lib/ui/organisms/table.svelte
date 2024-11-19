@@ -17,7 +17,7 @@
         {#each tableBody as product, i}
           <tr class="bg-white border-b">
             {#each Object.entries(product) as [key, value]}
-              <td class="pl-2 py-4">{value} {console.log(value)}</td>
+              <td class="pl-2 py-4">{value}</td>
             {/each}
           </tr>
         {/each}
