@@ -40,7 +40,7 @@
   </div>
 {:else}
   <div class="mx-4">
-    <Breadcrumbs content_breadcrumbs={breadcrumbs} />
+    <Breadcrumbs content={breadcrumbs} />
 
     <ProductOverview {product} />
 

@@ -92,9 +92,9 @@
     <a class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900" href="/cart">
       <span class="relative">
         <Icon name="shopping-bag" class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950" />
-        {#if $cartStore.length}
+        {#if $cartStore.totalQuantity}
           <div class="absolute font-bold -top-[5px] -left-[5px] bg-red-500 rounded-full px-1 text-white text-[.5rem]">
-            {$cartStore.length}
+            {$cartStore.totalQuantity}
           </div>
         {/if}
       </span>

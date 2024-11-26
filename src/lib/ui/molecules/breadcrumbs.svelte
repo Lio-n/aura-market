@@ -1,20 +1,36 @@
 <script lang="ts">
   import Icon from '../atoms/icon.svelte';
 
-  export let content_breadcrumbs: Array<{ to: string | null; name: string }>;
+  export let content: Array<{ to: string | null; name: string; active?: boolean; disabled?: boolean }> | [] = [];
+  export let home_access: boolean = true;
 </script>
 
-<nav class="text-xs text-gray-700 mt-4 font-medium flex">
+<nav class="text-xs mt-4 flex gap-2 {$$props.class}">
   <!-- svelte-ignore a11y_consider_explicit_label -->
-  <a href="/">
-    <Icon name="home" class="transition-colors fill-gray-700 hover:fill-gray-950" />
-  </a>
-  {#each content_breadcrumbs as item}
-    <span class="mx-2">/</span>
-    {#if item.to}
-      <a href={item.to} class="text-xs text-gray-700 hover:text-gray-900">{item.name}</a>
+  {#if home_access}
+    <a href="/" class="transition-colors flex gap-1 text-gray-700 font-medium hover:text-blue-500 group">
+      <Icon name="home" class="transition-colors fill-gray-700 group-hover:fill-blue-500" /> Home
+    </a>
+  {/if}
+
+  {#if home_access}
+    <Icon name="chevron-down" class="fill-none stroke-gray-400 size-4 stroke-2 -rotate-90" />
+  {/if}
+
+  {#each content as item, i}
+    {#if i}
+      <Icon name="chevron-down" class="fill-none stroke-gray-400 size-4 stroke-2 -rotate-90" />
+    {/if}
+
+    {#if item.disabled}
+      <span class="font-medium text-xs text-gray-700">{item.name}</span>
+    {:else if item.to}
+      <a
+        href={item.to}
+        class="font-medium text-xs hover:text-blue-500 {item.active ? 'text-gray-400' : 'text-gray-700'}">{item.name}</a
+      >
     {:else}
-      <span class="text-gray-900">{item.name}</span>
+      <span class="font-medium {item.active ? 'text-gray-400' : 'text-gray-700'}">{item.name}</span>
     {/if}
   {/each}
 </nav>

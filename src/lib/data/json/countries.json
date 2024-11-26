@@ -1,0 +1,40 @@
+[
+  {
+    "countryCode": "AR",
+    "country": "Argentina",
+    "flag": "🇦🇷"
+  },
+  {
+    "countryCode": "AU",
+    "country": "Australia",
+    "flag": "🇦🇺"
+  },
+
+  {
+    "countryCode": "BR",
+    "country": "Brazil",
+    "flag": "🇧🇷"
+  },
+  {
+    "countryCode": "IT",
+    "country": "Italy",
+    "flag": "🇮🇹"
+  },
+
+  {
+    "countryCode": "JP",
+    "country": "Japan",
+    "flag": "🇯🇵"
+  },
+  {
+    "countryCode": "UY",
+    "country": "Uruguay",
+    "flag": "🇺🇾"
+  },
+
+  {
+    "countryCode": "US",
+    "country": "United States of America",
+    "flag": "🇺🇸"
+  }
+]

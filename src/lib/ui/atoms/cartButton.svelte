@@ -1,19 +1,20 @@
 <script lang="ts">
   import { cartStore } from '$lib/stores/cart.store';
+  import type { ProductEntity } from '$lib/stores/product.store';
   import Button from './button.svelte';
   import Icon from './icon.svelte';
 
-  export let id: number;
+  export let item: ProductEntity;
 
-  $: in_cart = $cartStore.includes(id);
+  $: in_cart = !!$cartStore.items[item.id];
 
   const toggleCart = () => {
     in_cart = !in_cart;
 
     if (in_cart) {
-      $cartStore = [...$cartStore, id];
+      cartStore.addItem(item);
     } else {
-      $cartStore = $cartStore.filter((productId) => productId !== id);
+      cartStore.removeItem(item.id);
     }
   };
 </script>

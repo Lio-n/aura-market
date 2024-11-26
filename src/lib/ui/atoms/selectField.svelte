@@ -3,21 +3,39 @@
   export let label: string | null = null;
   export let preview: boolean = false;
   export let selected: string = '';
+  export let placeholder: string = '';
 </script>
 
-{#if label}
-  <label for={$$props.name} class="block mb-2 text-sm font-medium text-gray-900">{label}</label>
-{/if}
-<select
-  id={$$props.name}
-  name={$$props.name}
-  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-  disabled={preview}
-  class:bg-white={preview}
-  class:border-none={preview}
-  class:text-gray-500={preview}
->
-  {#each options as item}
-    <option value={item.value} selected={selected === item.name}>{item.name}</option>
-  {/each}
-</select>
+<div>
+  {#if label}
+    <label for={$$props.name} class="block mb-2 text-sm font-medium text-gray-500">{label}</label>
+  {/if}
+  <div class="relative">
+    <select
+      id={$$props.name}
+      name={$$props.name}
+      class="bg-gray-50 border border-gray-300 !text-gray-500 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 appearance-none cursor-pointer"
+      disabled={preview}
+      class:bg-white={preview}
+      class:border-none={preview}
+      class:text-gray-500={preview}
+    >
+      {#if placeholder}
+        <option hidden selected>{placeholder}</option>
+      {/if}
+      {#each options as item}
+        <option value={item.value} class="text-gray-500" selected={selected === item.name}>{item.name}</option>
+      {/each}
+    </select>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.2"
+      stroke="currentColor"
+      class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+    </svg>
+  </div>
+</div>

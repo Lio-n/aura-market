@@ -1,8 +1,14 @@
 import { browser } from '$app/environment';
 
 type StorageValue = Record<string, any> | string | number | boolean | null;
+export interface LocalStorage {
+  setItem: (key: string, value: StorageValue) => void;
+  getItem: <T extends StorageValue>(key: string) => T | null;
+  removeItem: (key: string) => void;
+  clear: () => void;
+}
 
-export const storage = {
+export const storage: LocalStorage = {
   setItem: (key: string, value: StorageValue): void => {
     browser && localStorage.setItem(key, JSON.stringify(value));
   },

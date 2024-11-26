@@ -35,7 +35,7 @@
 </script>
 
 <div class="mx-4">
-  <Breadcrumbs content_breadcrumbs={breadcrumbs} />
+  <Breadcrumbs content={breadcrumbs} />
 
   <section class="py-4">
     <div class="flex justify-end mb-4">

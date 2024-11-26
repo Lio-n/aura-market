@@ -10,21 +10,21 @@
 </script>
 
 <div class="w-full text-gray-700">
-  <div class="group relative bg-gray-100 h-40 rounded-md overflow-hidden">
+  <div class="group relative bg-gray-100 h-32 rounded-md overflow-hidden">
     <a href="/product/{item.id}">
       <img
         src={item.images[0]}
         on:error={imageFallback}
-        class="h-40 z-0 w-full bg-gray-100 object-contain absolute transition duration-500 ease-in-out group-hover:scale-110"
+        class="h-32 z-0 w-full bg-gray-100 object-contain absolute transition duration-500 ease-in-out group-hover:scale-110"
         alt="{item.title} image"
       />
     </a>
     <FavoriteButton id={item.id} class="absolute top-0 right-0 bg-white !p-1 mt-2 mr-2" />
   </div>
 
-  <div class="flex justify-between gap-4 font-semibold mt-4">
-    <span class="line-clamp-2">{item.title}</span>
-    <span class="flex text-lg text-green-600">
+  <div class="flex justify-between gap-4 font-semibold mt-4 mb-2">
+    <span class="line-clamp-2 text-sm">{item.title}</span>
+    <span class="flex text-base">
       <span class="text-xs">$</span>
       {item.price}
     </span>
@@ -37,5 +37,5 @@
     </p>
   </div>
 
-  <CartButton id={item.id} />
+  <CartButton {item} />
 </div>
