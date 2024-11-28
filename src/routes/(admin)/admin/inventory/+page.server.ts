@@ -1,4 +1,12 @@
 import { randomNumbers, randomSKU } from '$lib/helper/randomSKU';
+import {
+  CreateProductFormSchema,
+  CreateProductSchema,
+  UpdateProductFormSchema,
+  type CreateProductFormType,
+  type UpdateProductFormType,
+  type UpdateProductType,
+} from '$lib/schemas/product.schema';
 import { initialCategory, type CATEGORY, type ProductInventory } from '$lib/stores/product.store';
 import type { Actions } from '@sveltejs/kit';
 
@@ -7,56 +15,92 @@ export const actions: Actions = {
     const formData = await request.formData();
 
     const formDataObject = Object.fromEntries(formData.entries()) as unknown as Omit<
-      ProductInventory,
-      'category' | 'image'
+      CreateProductFormType,
+      'image' | 'price' | 'stock'
     > & {
-      category: CATEGORY;
-      specification_brand: string;
-      specification_model: string;
       uploadedImages: string;
+      price: string;
+      stock: string;
     };
 
-    const category = initialCategory[formDataObject.category];
+    const result = CreateProductFormSchema.safeParse({
+      ...formDataObject,
+      price: parseInt(formDataObject.price),
+      stock: parseInt(formDataObject.stock),
+      images: JSON.parse(formDataObject.uploadedImages || '[]'),
+    });
+
+    if (result.error) {
+      const parsedErrors = Object.fromEntries(
+        // @ts-ignore
+        result.error.issues.map((issue) => [issue.path[0], issue.message])
+      );
+
+      const response = { success: result.success, error: parsedErrors };
+
+      return response;
+    }
+
+    const category = initialCategory[result.data.category as CATEGORY];
 
     const parsedProduct: ProductInventory = {
       id: randomNumbers(),
-      title: formDataObject.title,
-      images: JSON.parse(formDataObject.uploadedImages),
-      description: formDataObject.description,
+      title: result.data.title,
+      images: result.data.images,
+      description: result.data.description,
       category,
       SKU: randomSKU(),
-      stock: formDataObject.stock,
-      price: formDataObject.price,
-      specifications: { brand: formDataObject.specification_brand, model: formDataObject.specification_model },
+      stock: result.data.stock,
+      price: result.data.price,
+      specifications: { brand: result.data.brand, model: result.data.model },
     };
 
-    return { success: true, product: parsedProduct };
+    const response = CreateProductSchema.safeParse(parsedProduct);
+
+    return { success: result.success, data: response.data };
   },
   updateProduct: async ({ request }) => {
     const formData = await request.formData();
 
     const formDataObject = Object.fromEntries(formData.entries()) as unknown as Omit<
-      ProductInventory,
-      'category' | 'image' | 'id' | 'SKU'
+      UpdateProductFormType,
+      'image' | 'price' | 'stock'
     > & {
-      category: CATEGORY;
-      specification_brand: string;
-      specification_model: string;
       uploadedImages: string;
+      price: string;
+      stock: string;
     };
 
-    const category = initialCategory[formDataObject.category];
+    const result = UpdateProductFormSchema.safeParse({
+      ...formDataObject,
+      price: parseInt(formDataObject.price),
+      stock: parseInt(formDataObject.stock),
+      images: JSON.parse(formDataObject.uploadedImages || '[]'),
+    });
 
-    const parsedProduct: Omit<ProductInventory, 'id' | 'SKU'> = {
-      title: formDataObject.title,
-      images: JSON.parse(formDataObject.uploadedImages),
-      description: formDataObject.description,
+    if (result.error) {
+      const parsedErrors = Object.fromEntries(
+        // @ts-ignore
+        result.error.issues.map((issue) => [issue.path[0], issue.message])
+      );
+
+      const response = { success: result.success, error: parsedErrors };
+
+      return response;
+    }
+
+    const category = initialCategory[result.data.category as CATEGORY];
+
+    const parsedProduct: UpdateProductType = {
+      title: result.data.title,
+      images: result.data.images,
+      description: result.data.description,
       category,
-      stock: formDataObject.stock,
-      price: formDataObject.price,
-      specifications: { brand: formDataObject.specification_brand, model: formDataObject.specification_model },
+      stock: result.data.stock,
+      price: result.data.price,
+      specifications: { brand: result.data.brand, model: result.data.model },
     };
 
-    return { success: true, product: parsedProduct };
+    return { success: result.success, data: parsedProduct };
   },
 };

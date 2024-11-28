@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import CurrencyInput from '@canutin/svelte-currency-input';
 
-  let { label = null, preview = false, value = $bindable(), ref = $bindable(), ...props } = $props();
+  let { label = null, isInvalid = '', preview = false, value = $bindable(), ref = $bindable(), ...props } = $props();
 
   let textareaElement: HTMLTextAreaElement;
 
@@ -30,6 +30,7 @@
       id={props.name}
       {value}
       class="resize-none block p-2.5 w-full text-sm text-gray-600 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 {props.class}"
+      class:border-red-500={isInvalid}
       disabled={props.disabled || preview}
       class:bg-white={preview}
       class:border-none={preview}
@@ -56,12 +57,19 @@
       bind:value
       bind:this={ref}
       id={props.name}
-      class="text-xs rounded bg-gray-50 border border-gray-300 text-gray-600 text-xs focus:ring-gray-500 focus:border-gray-500 focus:outline-none block w-full p-2.5 {props.class}"
+      class="peer text-xs rounded bg-gray-50 border border-gray-300 text-gray-600 text-xs focus:ring-gray-500 focus:border-gray-500 focus:outline-none block w-full p-2.5 {props.class}"
+      class:border-red-500={isInvalid}
       class:bg-white={preview}
       class:border-none={preview}
       class:text-gray-500={preview}
       {...props}
     />
+  {/if}
+
+  {#if isInvalid}
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      {isInvalid}
+    </span>
   {/if}
 </div>
 

@@ -17,7 +17,6 @@ export class CartService {
       cart.items[item.id] = { item, quantity: 1 };
       cart.totalQuantity++;
       cart.total_price += parseFloat(item.price + '');
-      console.log('cart : ', cart);
 
       return cart;
     });

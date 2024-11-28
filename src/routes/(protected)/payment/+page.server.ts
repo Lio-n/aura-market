@@ -1,69 +1,67 @@
 import type { PaymentStore } from '$lib/stores/payment.store';
 import type { Countries } from '../checkout/+page.server';
 import countriesJson from '$lib/data/json/countries.json';
+import { CreatePaymentFormSchema, type CreatePaymentFormType } from '$lib/schemas/payment.schema';
 
 export const actions = {
   createPayment: async ({ request }) => {
     const formData = await request.formData();
 
-    interface ProcessedFormData {
-      country: string;
-      phone_numnber: string;
-      street_name: string;
-      region: string;
-      city: string;
-      postal_code: string;
-      card_number: string;
-      card_name: string;
-      expiration_date: string;
-      card_cvv: string;
-      total_price: number;
-      customer_email: string;
-      customer_fullname: string;
-      shipping_method: string;
-      shipping_label: string;
-      shipping_price: number;
-      shipping_lead_time: string;
-    }
+    const formDataObject = Object.fromEntries(formData.entries()) as unknown as CreatePaymentFormType;
 
-    const formDataObject = Object.fromEntries(formData.entries()) as unknown as ProcessedFormData;
+    const result = CreatePaymentFormSchema.safeParse({
+      ...formDataObject,
+      shipping_price: parseInt(formDataObject.shipping_price + ''),
+      total_price: parseInt(formDataObject.total_price + ''),
+    });
+
+    if (result.error) {
+      const parsedErrors = Object.fromEntries(
+        // @ts-ignore
+        result.error.issues.map((issue) => [issue.path[0], issue.message])
+      );
+
+      const response = { success: result.success, error: parsedErrors };
+
+      return response;
+    }
 
     const parsedPayment: PaymentStore = {
       paymentDetails: {
         credit_card: {
-          holder_name: formDataObject.card_name,
-          last_4_digits: formDataObject.card_number.slice(-4),
+          holder_name: result.data.card_name,
+          last_4_digits: result.data.card_number.slice(-4),
           type: 'Visa',
         },
         status: 'pending',
         transactionId: crypto.randomUUID(),
-        amount: formDataObject.total_price + formDataObject.shipping_price,
+        amount: result.data.total_price + result.data.shipping_price,
       },
       checkoutDetails: {
-        total_price: formDataObject.total_price,
+        total_price: result.data.total_price,
         customer: {
-          email: formDataObject.customer_email,
-          fullname: formDataObject.customer_fullname,
-          phone_number: formDataObject.phone_numnber,
+          email: result.data.customer_email,
+          fullname: result.data.customer_fullname,
+          phone_number: result.data.phone_number,
         },
         shipping: {
           info: {
-            method: formDataObject.shipping_method,
-            label: formDataObject.shipping_label,
-            price: formDataObject.shipping_price,
-            lead_time: formDataObject.shipping_lead_time,
+            method: result.data.shipping_method,
+            label: result.data.shipping_label,
+            price: result.data.shipping_price,
+            lead_time: result.data.shipping_lead_time,
           },
           address: {
-            country: countriesJson.find((i) => i.countryCode === formDataObject.country) as Countries,
-            street_name: formDataObject.street_name,
-            city: formDataObject.city,
-            region: formDataObject.region,
-            postal_code: formDataObject.postal_code,
+            country: countriesJson.find((i) => i.countryCode === result.data.country) as Countries,
+            street_name: result.data.street_name,
+            city: result.data.city,
+            region: result.data.region,
+            postal_code: result.data.postal_code,
           },
         },
       },
     };
 
-    return { success: true, payment: parsedPayment };
+    return { success: result.success, data: parsedPayment };
   },
 };

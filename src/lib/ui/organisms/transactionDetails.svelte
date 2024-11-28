@@ -25,7 +25,7 @@
 
 <div class="m-4 sm:mx-auto">
   <div class="flex flex-col items-center space-y-4 border-b pb-4">
-    <div class="w-fit rounded-full border-4 border-green-300 p-2">
+    <div class="w-fit rounded-full border-4 border-green-300 bg-green-50 p-2">
       <Icon name="check" class="stroke-[2.5px] size-8 stroke-green-300 fill-none" />
     </div>
     <div class="space-y-4 text-center">

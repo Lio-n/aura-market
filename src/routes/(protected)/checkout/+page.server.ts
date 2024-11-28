@@ -1,7 +1,13 @@
 import type { Actions, PageServerLoad } from './$types';
 import countriesJson from '$lib/data/json/countries.json';
 import { type CheckoutDetails } from '$lib/stores/checkout.store';
-import { SHIPPING_METHOD, type SHIPPING_TYPES } from '../../../constants';
+import { SHIPPING_METHOD } from '../../../constants';
+import {
+  CreateCheckoutFormSchema,
+  CreateCheckoutSchema,
+  type CreateCheckoutFormType,
+  type CreateCheckoutType,
+} from '$lib/schemas/checkout.schema';
 
 export type Countries = {
   countryCode: string;
@@ -24,22 +30,22 @@ export const actions: Actions = {
   createCheckout: async ({ request }) => {
     const formData = await request.formData();
 
-    interface ProcessedFormData {
-      country: String;
-      fullname: string;
-      email: string;
-      confirm_email: string;
-      phone_numnber: string;
-      street_name: string;
-      region: string;
-      city: string;
-      postal_code: string;
-      shipping_method: SHIPPING_TYPES;
+    const formDataObject = Object.fromEntries(formData.entries()) as unknown as CreateCheckoutFormType;
+
+    const result = CreateCheckoutFormSchema.safeParse(formDataObject);
+
+    if (result.error) {
+      const parsedErrors = Object.fromEntries(
+        // @ts-ignore
+        result.error.issues.map((issue) => [issue.path[0], issue.message])
+      );
+
+      const response = { success: result.success, error: parsedErrors };
+
+      return response;
     }
 
-    const formDataObject = Object.fromEntries(formData.entries()) as unknown as ProcessedFormData;
-
-    const parsedCheckout: Pick<CheckoutDetails, 'customer' | 'shipping'> = {
+    const parsedCheckout: CreateCheckoutType = {
       shipping: {
         info: SHIPPING_METHOD[formDataObject.shipping_method],
         address: {
@@ -53,12 +59,12 @@ export const actions: Actions = {
       customer: {
         email: formDataObject.email,
         fullname: formDataObject.fullname,
-        phone_number: formDataObject.phone_numnber,
+        phone_number: formDataObject.phone_number,
       },
     };
 
-    console.log('load : ', parsedCheckout);
+    const response = CreateCheckoutSchema.safeParse(parsedCheckout);
 
-    return { success: true, checkout: parsedCheckout };
+    return { success: result.success, data: response.data };
   },
 };

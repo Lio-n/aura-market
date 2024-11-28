@@ -10,6 +10,7 @@
   import CheckoutItem from '$lib/ui/molecules/checkoutItem.svelte';
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
+  import { type CreateCheckoutType } from '$lib/schemas/checkout.schema';
   let { data } = $props();
 
   const breadcrumbs = [
@@ -17,6 +18,7 @@
     { to: '/checkout', name: 'Checkout', active: true },
     { to: '/payment', name: 'Payment', disabled: true },
   ];
+  let formData = $state<{ errors: { [k: string]: any } | null }>({ errors: null });
 
   const onSubmitedForm = (parsedCheckout: Pick<CheckoutDetails, 'customer' | 'shipping'>) => {
     checkoutStore.set({ ...$checkoutStore, ...parsedCheckout });
@@ -39,13 +41,20 @@
 
 <section class="grid md:grid-cols-[auto,_20rem] gap-4 md:mx-2 my-6 md:my-8">
   <form
+    novalidate
     id="checkout_form"
+    class="group"
     method="POST"
     action="?/createCheckout"
     use:enhance={(e) => {
       return async ({ result, update }) => {
-        if (result.type === 'success' && result?.data?.success)
-          onSubmitedForm(result?.data.checkout as Pick<CheckoutDetails, 'customer' | 'shipping'>);
+        if (result.type === 'success' && !result?.data?.success) {
+          formData.errors = result?.data?.error as { [k: string]: any } | null;
+        }
+
+        if (result.type === 'success' && result?.data?.success) {
+          onSubmitedForm(result?.data.data as CreateCheckoutType);
+        }
 
         await update({ reset: false });
       };
@@ -55,14 +64,14 @@
       <span class="pb-4 md:pb-6 border-b block">
         {#if data.countries}
           <h3 class="text-sm mb-4 font-bold text-gray-700">Select Shipping Country</h3>
-          <SelectField options={data.countries} name="country" placeholder="Select country" />
+          <SelectField options={data.countries} selected={data.countries[0].name} name="country" />
         {/if}
       </span>
 
       <div>
         <h3 class="text-sm mb-4 font-bold text-gray-700">Shipping Address</h3>
 
-        <ShippingAddress />
+        <ShippingAddress inValid={formData} />
       </div>
 
       <span>
@@ -144,7 +153,13 @@
         >
       </span>
 
-      <Button text="Continue to payment" class="mt-2" type="submit" form="checkout_form" disabled={enable_payment} />
+      <Button
+        text="Continue to payment"
+        class="mt-2 group-invalid:pointer-events-none group-invalid:opacity-30"
+        type="submit"
+        form="checkout_form"
+        disabled={enable_payment}
+      />
     </div>
   </div>
 </section>

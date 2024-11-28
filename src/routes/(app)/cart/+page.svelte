@@ -10,7 +10,6 @@
 
   const handleCheckout = () => {
     checkoutStore.set({ ...$checkoutStore, total_price: $cartStore.total_price, items: $cartStore.items });
-    console.log('handleCheckout : ', $checkoutStore);
 
     goto('/checkout');
   };

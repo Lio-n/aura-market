@@ -6,6 +6,7 @@
   import SelectField from '../atoms/selectField.svelte';
   import ImagesUpload from '$lib/components/imagesUpload.svelte';
   import { enhance } from '$app/forms';
+  import { type UpdateProductType } from '$lib/schemas/product.schema';
 
   let { product, onClose }: { product: ProductInventory; onClose: () => void } = $props();
   let in_edit = $state(false);
@@ -63,7 +64,7 @@
     use:enhance={(e) => {
       return async ({ result, update }) => {
         if (result.type === 'success' && result?.data?.success)
-          onSubmitedForm({ ...product, ...(result?.data.product as ProductInventory) });
+          onSubmitedForm({ ...product, ...(result?.data.product as UpdateProductType) });
 
         await update({
           reset: false,
@@ -120,18 +121,8 @@
         <div>
           <span class="font-medium text-lg"> Specifications </span>
           <div class="mt-2 h-40 space-x-2 p-3 border-2 rounded grid grid-cols-2 h-fit">
-            <TextField
-              name="specification_brand"
-              label="Brand"
-              value={product.specifications.brand}
-              preview={!in_edit}
-            />
-            <TextField
-              name="specification_model"
-              label="Model"
-              value={product.specifications.model}
-              preview={!in_edit}
-            />
+            <TextField name="brand" label="Brand" value={product.specifications.brand} preview={!in_edit} />
+            <TextField name="model" label="Model" value={product.specifications.model} preview={!in_edit} />
           </div>
         </div>
 

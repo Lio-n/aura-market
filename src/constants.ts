@@ -31,3 +31,8 @@ export const SHIPPING_METHOD: SHIPPING_METHOD = {
 
 export type Role = (typeof ROLES)[keyof typeof ROLES];
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
+
+export const PHONE_NUMBER_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$/;
+export const CARD_NUMBER_REGEX = /^\d{16}$/; // 16 dígitos para tarjetas estándar.
+export const EXPIRATION_DATE_REGEX = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/; // MM/YY formato.
+export const CARD_CVV_REGEX = /^\d{3,4}$/; // 3 o 4 dígitos.

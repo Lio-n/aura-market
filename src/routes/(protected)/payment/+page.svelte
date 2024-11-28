@@ -11,12 +11,14 @@
   import { paymentStore, type PaymentStore } from '$lib/stores/payment.store';
   import { orderStore, type OrderDetails } from '$lib/stores/order.store';
   import { cartStore } from '$lib/stores/cart.store';
-  import Icon from '$lib/ui/atoms/icon.svelte';
   import TransactionDetails, { type ITransactionDetails } from '$lib/ui/organisms/transactionDetails.svelte';
   import type { SHIPPING_TYPES } from '../../../constants';
 
   let currTransaction = $state<ITransactionDetails | null>(null);
-  let isTransactionCompleted = $state(false);
+  let isTransactionCompleted = $state<boolean>(false);
+  let useShippingAddress = $state<boolean>(false);
+  let formData = $state<{ errors: { [k: string]: any } | null }>({ errors: null });
+  let enable_payment: boolean = false;
 
   const breadcrumbs = [
     { to: '/cart', name: 'Cart' },
@@ -61,14 +63,16 @@
     isTransactionCompleted = true;
   };
 
-  let enable_payment: boolean = false;
-
   onMount(() => {
     if ($checkoutStore?.items && !Object.values($checkoutStore.items).length) goto('/cart');
   });
 </script>
 
-<Breadcrumbs content={breadcrumbs} class="mx-4 md:mx-6" />
+{#if !isTransactionCompleted}
+  <Breadcrumbs content={breadcrumbs} class="mx-4 md:mx-6" />
+{:else}
+  <Breadcrumbs class="mx-4 md:mx-6" />
+{/if}
 
 <section
   class="grid {isTransactionCompleted && currTransaction
@@ -86,15 +90,31 @@
         e.formData.append('total_price', $checkoutStore.total_price + '');
         e.formData.append('customer_email', $checkoutStore.customer.email);
         e.formData.append('customer_fullname', $checkoutStore.customer.fullname);
+
         e.formData.append('shipping_method', $checkoutStore.shipping.info.method);
         e.formData.append('shipping_label', $checkoutStore.shipping.info.label);
         e.formData.append('shipping_price', $checkoutStore.shipping.info.price + '');
         e.formData.append('shipping_lead_time', $checkoutStore.shipping.info.lead_time);
 
-        return async ({ result, update }) => {
-          if (result.type === 'success' && result?.data?.success) onSubmitedForm(result?.data.payment as PaymentStore);
+        if (useShippingAddress) {
+          e.formData.set('country', $checkoutStore.shipping.address.country.countryCode);
+          e.formData.set('phone_number', $checkoutStore.customer.phone_number);
+          e.formData.set('street_name', $checkoutStore.shipping.address.street_name);
+          e.formData.set('city', $checkoutStore.shipping.address.city);
+          e.formData.set('region', $checkoutStore.shipping.address.region);
+          e.formData.set('postal_code', $checkoutStore.shipping.address.postal_code);
+        }
 
-          await update();
+        return async ({ result, update }) => {
+          if (result.type === 'success' && !result?.data?.success) {
+            formData.errors = result?.data?.error as { [k: string]: any } | null;
+          }
+
+          if (result.type === 'success' && result?.data?.success) {
+            onSubmitedForm(result?.data.data as PaymentStore);
+          }
+
+          await update({ reset: false });
         };
       }}
     >
@@ -102,13 +122,56 @@
         <div>
           <h3 class="text-sm mb-4 font-bold text-gray-700">Payment method</h3>
 
-          <PaymentCreditCard />
+          <PaymentCreditCard inValid={formData} />
         </div>
 
         <div>
           <h3 class="text-sm mb-4 font-bold text-gray-700">Billing Address</h3>
 
-          <BillingAddress />
+          {#if useShippingAddress}
+            <label
+              for="link-checkbox"
+              class="rounded p-4 cursor-pointer flex gap-4 my-4 items-center border select-none text-gray-500"
+            >
+              <input
+                id="link-checkbox"
+                type="checkbox"
+                bind:checked={useShippingAddress}
+                value=""
+                class="cursor-pointer size-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+              />
+
+              <div>
+                <p class="text-sm text-gray-600 font-semibold">{$checkoutStore.shipping.address.street_name}</p>
+                <div class="flex gap-1 text-xs text-gray-500 flex-wrap">
+                  <p>{$checkoutStore.customer.phone_number}</p>
+                  <span>-</span>
+                  <p>{$checkoutStore.shipping.address.country.country}</p>
+                  <span>-</span>
+                  <p>{$checkoutStore.shipping.address.city}</p>
+                  <span>-</span>
+                  <p>{$checkoutStore.shipping.address.postal_code}</p>
+                  <span>-</span>
+                  <p>{$checkoutStore.shipping.address.region}</p>
+                </div>
+              </div>
+            </label>
+          {:else}
+            <div class="flex items-center m-4 w-fit">
+              <input
+                id="link-checkbox"
+                type="checkbox"
+                bind:checked={useShippingAddress}
+                value=""
+                class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+              />
+              <label for="link-checkbox" class="cursor-pointer ms-2 text-xs font-medium text-gray-700"
+                >Same as my shipping address</label
+              >
+            </div>
+
+            <BillingAddress inValid={formData} />
+          {/if}
         </div>
       </div>
     </form>
