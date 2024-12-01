@@ -18,7 +18,7 @@
   let isTransactionCompleted = $state<boolean>(false);
   let useShippingAddress = $state<boolean>(false);
   let formData = $state<{ errors: { [k: string]: any } | null }>({ errors: null });
-  let enable_payment: boolean = false;
+  let isLoading: boolean = $state(false);
 
   const breadcrumbs = [
     { to: '/cart', name: 'Cart' },
@@ -70,8 +70,6 @@
 
 {#if !isTransactionCompleted}
   <Breadcrumbs content={breadcrumbs} class="mx-4 md:mx-6" />
-{:else}
-  <Breadcrumbs class="mx-4 md:mx-6" />
 {/if}
 
 <section
@@ -87,6 +85,8 @@
       method="POST"
       action="?/createPayment"
       use:enhance={(e) => {
+        isLoading = true;
+
         e.formData.append('total_price', $checkoutStore.total_price + '');
         e.formData.append('customer_email', $checkoutStore.customer.email);
         e.formData.append('customer_fullname', $checkoutStore.customer.fullname);
@@ -106,6 +106,8 @@
         }
 
         return async ({ result, update }) => {
+          isLoading = false;
+
           if (result.type === 'success' && !result?.data?.success) {
             formData.errors = result?.data?.error as { [k: string]: any } | null;
           }
@@ -224,7 +226,7 @@
           >
         </span>
 
-        <Button text="Continue to payment" class="mt-2" type="submit" form="payment_form" disabled={enable_payment} />
+        <Button text="Continue to payment" class="mt-2" type="submit" form="payment_form" loading={isLoading} />
       </div>
     </div>
   {/if}

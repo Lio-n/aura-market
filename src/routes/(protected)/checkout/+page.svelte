@@ -30,7 +30,7 @@
 
   let shipping_method = $state(SHIPPING_TYPES.FREE);
   let grand_price = $checkoutStore?.total_price;
-  let enable_payment: boolean = false;
+  let isLoading: boolean = $state(false);
 
   onMount(() => {
     if ($checkoutStore?.items && !Object.values($checkoutStore.items).length) goto('/cart');
@@ -40,6 +40,7 @@
 <Breadcrumbs content={breadcrumbs} class="mx-4 md:mx-6" />
 
 <section class="grid md:grid-cols-[auto,_20rem] gap-4 md:mx-2 my-6 md:my-8">
+  <!-- svelte-ignore event_directive_deprecated -->
   <form
     novalidate
     id="checkout_form"
@@ -47,7 +48,11 @@
     method="POST"
     action="?/createCheckout"
     use:enhance={(e) => {
+      isLoading = true;
+
       return async ({ result, update }) => {
+        isLoading = false;
+
         if (result.type === 'success' && !result?.data?.success) {
           formData.errors = result?.data?.error as { [k: string]: any } | null;
         }
@@ -153,13 +158,7 @@
         >
       </span>
 
-      <Button
-        text="Continue to payment"
-        class="mt-2 group-invalid:pointer-events-none group-invalid:opacity-30"
-        type="submit"
-        form="checkout_form"
-        disabled={enable_payment}
-      />
+      <Button text="Continue to payment" class="mt-2" type="submit" form="checkout_form" loading={isLoading} />
     </div>
   </div>
 </section>

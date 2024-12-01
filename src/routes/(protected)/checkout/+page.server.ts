@@ -8,6 +8,7 @@ import {
   type CreateCheckoutFormType,
   type CreateCheckoutType,
 } from '$lib/schemas/checkout.schema';
+import { delay } from '$lib/helper/delay';
 
 export type Countries = {
   countryCode: string;
@@ -29,6 +30,8 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
   createCheckout: async ({ request }) => {
     const formData = await request.formData();
+
+    await delay(2000);
 
     const formDataObject = Object.fromEntries(formData.entries()) as unknown as CreateCheckoutFormType;
 

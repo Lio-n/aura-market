@@ -2,10 +2,13 @@ import type { PaymentStore } from '$lib/stores/payment.store';
 import type { Countries } from '../checkout/+page.server';
 import countriesJson from '$lib/data/json/countries.json';
 import { CreatePaymentFormSchema, type CreatePaymentFormType } from '$lib/schemas/payment.schema';
+import { delay } from '$lib/helper/delay';
 
 export const actions = {
   createPayment: async ({ request }) => {
     const formData = await request.formData();
+
+    await delay(2000);
 
     const formDataObject = Object.fromEntries(formData.entries()) as unknown as CreatePaymentFormType;
 
