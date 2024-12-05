@@ -3,6 +3,7 @@
   import { imageFallback } from '$lib/helper/imageFallback';
   import FavoriteButton from '../atoms/favoriteButton.svelte';
   import CartButton from '../atoms/cartButton.svelte';
+  import Img from '../atoms/img.svelte';
 
   export let item: ProductEntity;
 
@@ -12,9 +13,8 @@
 <div class="w-full text-gray-700">
   <div class="group relative bg-gray-100 h-32 rounded-md overflow-hidden">
     <a href="/product/{item.id}">
-      <img
+      <Img
         src={item.images[0]}
-        on:error={imageFallback}
         class="h-32 z-0 w-full bg-gray-100 object-contain absolute transition duration-500 ease-in-out group-hover:scale-110"
         alt="{item.title} image"
       />

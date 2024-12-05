@@ -70,6 +70,10 @@
           <ProductCard {item} />
         {/each}
       </ul>
+    {:else}
+      <div class="h-60 grid place-items-center">
+        <h2 class="font-medium text-gray-700">No products found</h2>
+      </div>
     {/if}
   </section>
 {/if}

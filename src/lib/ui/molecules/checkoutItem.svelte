@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { ProductEntity } from '$lib/stores/product.store';
+  import Img from '../atoms/img.svelte';
 
   let { item, quantity }: { item: ProductEntity; quantity: number } = $props();
 </script>
 
 <div class="flex justify-between gap-4">
   <div class="flex gap-2">
-    <img src={item.images[0]} alt="" class="size-16 rounded" />
+    <Img src={item.images[0]} alt="" class="size-16 rounded" />
 
     <div class="flex flex-col justify-between text-gray-700">
       <h4 class="line-clamp-2 font-semibold text-sm">{item.title}</h4>

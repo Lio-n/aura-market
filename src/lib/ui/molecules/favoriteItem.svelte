@@ -3,7 +3,7 @@
   import Button from '../atoms/button.svelte';
   import { favoriteStore } from '$lib/stores/favorites.store';
   import CartButton from '../atoms/cartButton.svelte';
-  import Icon from '../atoms/icon.svelte';
+  import Img from '../atoms/img.svelte';
 
   let { item }: { item: ProductEntity } = $props();
 </script>
@@ -11,13 +11,13 @@
 <div class="flex max-sm:flex-col gap-4 justify-between sm:min-w-80">
   <div class="max-sm:flex max-sm:justify-between">
     <div class="flex gap-4">
-      <img
+      <Img
         src={item.images[0]}
         alt="clothe - img"
         class="max-sm:size-10 sm:size-16 md:size-20 rounded object-contain"
       />
       <div class="flex flex-col justify-between">
-        <a href="product/{item.id}">
+        <a href="product/{item.id}" class="w-fit">
           <h3
             class="line-clamp-2 font-semibold max-sm:text-xs after:bg-[url('/icons/arrow-archor.svg')] after:content-[''] after:size-3 after:inline-block after:ml-1 underline decoration-dotted decoration-1 underline-offset-4 hover:text-gray-400 hover:decoration-gray-400"
           >
