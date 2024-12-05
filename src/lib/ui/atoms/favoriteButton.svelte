@@ -1,18 +1,19 @@
 <script lang="ts">
   import { favoriteStore } from '$lib/stores/favorites.store';
+  import type { ProductEntity } from '$lib/stores/product.store';
   import Icon from './icon.svelte';
 
-  export let id: number;
+  export let item: ProductEntity;
 
-  $: in_favorite = $favoriteStore.includes(id);
+  $: in_favorite = !!$favoriteStore.items.find((i) => i.id === item.id);
 
   const toggleFavorite = () => {
     in_favorite = !in_favorite;
 
     if (in_favorite) {
-      $favoriteStore = [...$favoriteStore, id];
+      favoriteStore.addItem(item);
     } else {
-      $favoriteStore = $favoriteStore.filter((productId) => productId !== id);
+      favoriteStore.removeItem(item.id);
     }
   };
 </script>

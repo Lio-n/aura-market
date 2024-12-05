@@ -80,9 +80,9 @@
     <a class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900" href="/favorite">
       <span class="relative">
         <Icon name="heart-outline" class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950" />
-        {#if $favoriteStore.length}
+        {#if $favoriteStore.total}
           <div class="absolute font-bold -top-[5px] -left-[5px] bg-red-500 rounded-full px-1 text-white text-[.5rem]">
-            {$favoriteStore.length}
+            {$favoriteStore.total}
           </div>
         {/if}
       </span>

@@ -102,11 +102,11 @@
               name="heart-outline"
               class="transition-colors fill-none stroke-gray-700 stroke-2 hover:stroke-gray-900 group"
             />
-            {#if $favoriteStore.length}
+            {#if $favoriteStore.total}
               <div
                 class="absolute font-bold -top-[5px] -left-[5px] bg-red-500 rounded-full px-1 text-white text-[.5rem]"
               >
-                {$favoriteStore.length}
+                {$favoriteStore.total}
               </div>
             {/if}
           </span>

@@ -2,12 +2,27 @@
   import type { Icons } from './icon.svelte';
   import Icon from './icon.svelte';
 
-  export let variant: 'outline' | 'solid' | 'ghost' = 'solid';
-  export let size: 'small' | 'medium' = 'small';
-  export let icon: Icons | null = null;
-  export let text = '';
-  export let disabled: boolean = false;
-  export let loading: boolean = false;
+  type Button = {
+    variant?: 'outline' | 'solid' | 'ghost';
+    size?: 'small' | 'medium';
+    icon?: Icons | null;
+    text: string;
+    disabled?: boolean;
+    loading?: boolean;
+    class?: string;
+    type?: 'reset' | 'submit' | 'button' | null | undefined;
+    form?: string;
+  };
+
+  let {
+    variant = 'solid',
+    size = 'small',
+    icon = null,
+    text = '',
+    disabled = false,
+    loading = false,
+    ...props
+  }: Button = $props();
 
   const custom_variants = {
     outline: 'bg-white text-gray-950 enabled:hover:text-white enabled:hover:bg-gray-950 group',
@@ -27,16 +42,17 @@
   };
 </script>
 
+<!-- svelte-ignore event_directive_deprecated -->
 <button
   on:click
-  {...$$props}
+  {...props}
   {disabled}
   class:opacity-90={disabled || loading}
   class:cursor-not-allowed={disabled}
   class:pointer-events-none={loading}
   class="flex gap-2 justify-center items-center transition-colors rounded-md w-full font-semibold border-2 border-gray-950 {custom_variants[
     variant
-  ]} {custom_size[size]} {$$props.class}"
+  ]} {custom_size[size]} {props.class}"
 >
   {#if icon && !loading}
     <Icon name={icon} class="transition-colors size-4 {custom_variants_icon[variant]}" />

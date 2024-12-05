@@ -21,6 +21,7 @@
   };
 
   const onRest = () => {
+    if (count <= min) return;
     count--;
     callback(count);
   };

@@ -19,7 +19,7 @@
         alt="{item.title} image"
       />
     </a>
-    <FavoriteButton id={item.id} class="absolute top-0 right-0 bg-white !p-1 mt-2 mr-2" />
+    <FavoriteButton {item} class="absolute top-0 right-0 bg-white !p-1 mt-2 mr-2" />
   </div>
 
   <div class="flex justify-between gap-4 font-semibold mt-4 mb-2">
@@ -37,5 +37,7 @@
     </p>
   </div>
 
-  <CartButton {item} />
+  <div class="mt-4">
+    <CartButton {item} />
+  </div>
 </div>

@@ -6,7 +6,6 @@
   import ProductOverview from '$lib/ui/template/productOverview.svelte';
 
   let { data } = $props();
-
   const GetLocalProductById = (_id: string): ProductEntity | null => {
     if (!$page.params.id) return null;
 
