@@ -10,8 +10,8 @@ export interface CartItem {
 }
 
 export interface CartStore {
-  items: Record<number, CartItem>;
-  totalQuantity: number;
+  items: Array<CartItem>;
+  total_quantity: number;
   total_price: number;
 }
 
@@ -20,8 +20,8 @@ const createCart = () => {
   const initialCart: CartStore = storedCart
     ? JSON.parse(storedCart)
     : {
-        items: {},
-        totalQuantity: 0,
+        items: [],
+        total_quantity: 0,
         total_price: 0,
       };
 

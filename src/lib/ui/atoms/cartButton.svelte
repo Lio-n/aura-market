@@ -8,7 +8,7 @@
   export let size: 'small' | 'medium' = 'small';
   export let item: ProductEntity;
 
-  $: in_cart = !!$cartStore.items[item.id];
+  $: in_cart = !!$cartStore.items.find((i) => i.item.id === item.id);
 
   $: console.log($cartStore);
 

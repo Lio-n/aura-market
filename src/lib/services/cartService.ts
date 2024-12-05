@@ -1,5 +1,5 @@
 import { PUBLIC_STORAGE_KEY_CART } from '$env/static/public';
-import { type CartStore } from '$lib/stores/cart.store';
+import { type CartItem, type CartStore } from '$lib/stores/cart.store';
 import { storage, type LocalStorage } from '$lib/stores/localStorage';
 import type { ProductEntity } from '$lib/stores/product.store';
 import { type Writable } from 'svelte/store';
@@ -15,8 +15,8 @@ export class CartService {
 
   addItem(item: ProductEntity, quantity: number = 1): void {
     this.store.update((cart) => {
-      cart.items[item.id] = { item, quantity };
-      cart.totalQuantity++;
+      cart.items = [...cart.items, { item, quantity }];
+      cart.total_quantity++;
       cart.total_price += parseFloat(item.price * quantity + '');
 
       return cart;
@@ -25,17 +25,19 @@ export class CartService {
 
   removeItem(id: number) {
     this.store.update((cart) => {
-      cart.totalQuantity -= cart.items[id].quantity;
-      cart.total_price -= cart.items[id].item.price * cart.items[id].quantity;
+      const toRemove = cart.items.find((i) => i.item.id === id) as CartItem;
 
-      delete cart.items[id];
+      cart.total_quantity--;
+      cart.total_price -= toRemove.item.price * toRemove.quantity;
+
+      cart.items = [...cart.items.filter((i) => i.item.id !== toRemove.item.id)];
       return cart;
     });
   }
 
   updateQuantity(id: number, quantity: number) {
     this.store.update((cart) => {
-      const currentItem = cart.items[id];
+      const currentItem = cart.items.find((i) => i.item.id === id) as CartItem;
 
       if (currentItem) {
         const quantityDifference = quantity - currentItem.quantity;
@@ -50,8 +52,8 @@ export class CartService {
 
   reset() {
     this.store.set({
-      items: {},
-      totalQuantity: 0,
+      items: [],
+      total_quantity: 0,
       total_price: 0,
     });
 

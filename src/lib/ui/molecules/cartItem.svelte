@@ -10,7 +10,7 @@
   const handleCount = (count: number) => cartStore.updateQuantity(item.id, count);
 </script>
 
-<div class="flex justify-between sm:min-w-80">
+<div class="flex justify-between sm:min-w-80 gap-4">
   <div class="flex gap-4">
     <Img src={item.images[0]} alt="clothe - img" class="max-sm:size-10 sm:size-16 md:size-20 rounded object-contain" />
     <div class="flex flex-col justify-between">
@@ -21,7 +21,6 @@
           {item.title}
         </h3>
       </a>
-
       <Count size="small" class="bg-white" value={quantity} callback={handleCount} min={1} />
     </div>
   </div>

@@ -122,11 +122,11 @@
               name="shopping-bag"
               class="transition-colors fill-none stroke-gray-700 stroke-2 hover:stroke-gray-950"
             />
-            {#if $cartStore.totalQuantity}
+            {#if $cartStore.total_quantity}
               <div
                 class="absolute font-bold -top-[5px] -left-[5px] bg-red-500 rounded-full px-1 text-white text-[.5rem]"
               >
-                {$cartStore.totalQuantity}
+                {$cartStore.total_quantity}
               </div>
             {/if}
           </span>

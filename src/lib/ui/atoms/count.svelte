@@ -14,7 +14,6 @@
   } = $props();
 
   let count = $state(value);
-
   const custom_size = {
     small: { button: 'px-2 text-xs', count: 'px-3 py-2 text-xs' },
     medium: { button: 'px-4 text-sm', count: 'px-4 py-2 text-sm' },

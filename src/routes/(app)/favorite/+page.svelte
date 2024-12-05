@@ -10,7 +10,7 @@
 
 <section class="mx-auto my-6 md:my-8" style="max-width: 48rem;">
   <div class="min-h-40 sm:h-full sm:border sm:rounded py-2 px-4 md:py-4 w-full">
-    {#each $favoriteStore.items as item, i}
+    {#each $favoriteStore.items as item, i (item.id)}
       <div class={i !== 0 ? 'mt-4 pt-4 border-t-[1px] md:mt-6 md:pt-6' : ''}>
         <FavoriteItem {item} />
       </div>

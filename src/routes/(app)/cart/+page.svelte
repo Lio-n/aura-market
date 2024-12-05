@@ -20,7 +20,7 @@
 <section class="grid md:grid-cols-[auto,_20rem] gap-4 md:mx-2 my-6 md:my-8">
   <div>
     <div class="sm:h-full sm:border sm:rounded py-2 px-4 md:py-4 w-full space-y-4 md:space-y-6">
-      {#each Object.entries($cartStore.items) as [_i, data]}
+      {#each $cartStore.items as data (data.item.id)}
         <CartItem item={data.item} quantity={data.quantity} />
       {/each}
     </div>
@@ -37,6 +37,22 @@
           })}</span
         >
       </span>
+
+      <div class="overflow-auto max-h-24 border-y my-2 py-2">
+        {#each $cartStore.items as data (data.item.id)}
+          <span class="flex justify-between gap-4">
+            <span class="text-gray-600 text-sm"
+              >{data.quantity}x<span class="text-xs text-gray-400">{data.item.title}</span></span
+            >
+            <span class="font-semibold text-xs text-gray-600"
+              >{(data.item.price * data.quantity).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })}</span
+            >
+          </span>
+        {/each}
+      </div>
 
       <span class="text-xs md:text-sm text-gray-400 flex justify-between">
         <span>Discount</span>
