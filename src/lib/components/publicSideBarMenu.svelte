@@ -9,6 +9,7 @@
   import { ROLES } from '../../constants';
   import { goto } from '$app/navigation';
   import ButtonSignOut from '$lib/ui/atoms/buttonSignOut.svelte';
+  import { page } from '$app/stores';
 
   let showContent = false;
   let sideMenuRef: HTMLDivElement | undefined;
@@ -35,6 +36,9 @@
 
   $: isAdmin = $userStore && checkRole($userStore, ROLES.ADMIN);
   $: isCustomer = $userStore && checkRole($userStore, ROLES.CUSTOMER);
+
+  $: currPage = $page.url.pathname;
+  let stylesByActualPage = 'text-gray-900 bg-gray-100 border-l-2 border-blue-500';
 </script>
 
 <div>
@@ -64,7 +68,7 @@
           {#if isAdmin}
             <a
               class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
-              href="/admin/dashboard"
+              href="/admin/dashboard {currPage === '/admin/dashboard' ? stylesByActualPage : ''}"
               ><Icon name="window" class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950" />
               Dashboard</a
             >
@@ -72,8 +76,11 @@
 
           {#if isCustomer}
             <a
-              class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
-              href="/account"
+              class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 {currPage ===
+              '/account/my-profile'
+                ? stylesByActualPage
+                : ''}"
+              href="/account/my-profile"
               ><Icon
                 name="user"
                 class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950"
@@ -84,7 +91,10 @@
           <ButtonSignOut />
         {:else}
           <a
-            class="w-full font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+            class="w-full font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 {currPage ===
+            '/login'
+              ? stylesByActualPage
+              : ''}"
             href="/login"
             ><Icon
               name="sign-in"
@@ -94,7 +104,10 @@
         {/if}
 
         <a
-          class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+          class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 {currPage ===
+          '/favorite'
+            ? stylesByActualPage
+            : ''}"
           href="/favorite"
         >
           <span class="relative">
@@ -114,7 +127,10 @@
         </a>
 
         <a
-          class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2"
+          class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 {currPage ===
+          '/cart'
+            ? stylesByActualPage
+            : ''}"
           href="/cart"
         >
           <span class="relative">
@@ -135,8 +151,10 @@
 
         <DropdownVertical name="Categories" content={dropdownContent} addTagIcon />
         <a
-          href="/#deals"
-          class="p-2 font-medium text-xs flex gap-1 items-center text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md"
+          href="/deals"
+          class="{currPage === '/deals'
+            ? stylesByActualPage
+            : ''} p-2 font-medium text-xs flex gap-1 items-center text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md"
           ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 hover:stroke-gray-950" />Deals</a
         >
       </div>

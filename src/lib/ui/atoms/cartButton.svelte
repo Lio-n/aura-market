@@ -10,8 +10,6 @@
 
   $: in_cart = !!$cartStore.items.find((i) => i.item.id === item.id);
 
-  $: console.log($cartStore);
-
   const toggleCart = () => {
     in_cart = !in_cart;
 

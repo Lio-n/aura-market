@@ -58,7 +58,7 @@
         {SHIPPING_METHOD[data.shipping_method].label} delivery ({SHIPPING_METHOD[data.shipping_method].lead_time})
       </p>
       <a
-        href="/account/orders/{data.order_id}"
+        href="/account/my-profile/orders/{data.order_id}"
         class="w-fit block mt-4 text-sm underline font-bold text-gray-700 hover:text-gray-500">TRACK ORDER</a
       >
     </div>

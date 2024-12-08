@@ -24,7 +24,9 @@
     | 'arrows-pointing-out'
     | 'arrows-pointing-in'
     | 'chevron-down'
-    | 'arrow-archor';
+    | 'arrow-archor'
+    | 'credit-card'
+    | 'map-pin';
 </script>
 
 <script lang="ts">
@@ -33,6 +35,15 @@
   export let height = '1rem';
   export let focusable: string | number | null | undefined = undefined;
   let icons = {
+    'map-pin': {
+      box: 24,
+      svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />`,
+    },
+    'credit-card': {
+      box: 24,
+      svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />`,
+    },
     'arrow-archor': {
       box: 24,
       svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />`,
@@ -142,6 +153,12 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<svg on:click class={$$props.class} {focusable} {width} {height} viewBox="0 0 {displayIcon.box} {displayIcon.box}"
-  >{@html displayIcon.svg}</svg
+<svg
+  on:click
+  {...$$props}
+  class={$$props.class}
+  {focusable}
+  {width}
+  {height}
+  viewBox="0 0 {displayIcon.box} {displayIcon.box}">{@html displayIcon.svg}</svg
 >

@@ -34,7 +34,7 @@
       disabled={props.disabled || preview}
       class:bg-white={preview}
       class:border-none={preview}
-      class:text-gray-500={preview}
+      class:text-gray-700={preview}
       {...props}
     ></textarea>
   {:else if props.type === 'currency'}
@@ -44,7 +44,7 @@
         bind:value
         name={props.name}
         inputClasses={{
-          formatted: `text-xs rounded bg-gray-50 border border-gray-300 text-gray-600 text-xs focus:ring-gray-500 focus:border-gray-500 focus:outline-none block w-full p-2.5 ${preview ? 'bg-white border-none text-gray-500' : ''} ${props.class}`,
+          formatted: `text-xs rounded bg-gray-50 border border-gray-300 text-gray-600 text-xs focus:ring-gray-500 focus:border-gray-500 focus:outline-none block w-full p-2.5 ${preview ? 'bg-white border-none text-gray-700' : ''} ${props.class}`,
         }}
         isNegativeAllowed={false}
         disabled={props.disabled || preview}
@@ -61,7 +61,7 @@
       class:border-red-500={isInvalid}
       class:bg-white={preview}
       class:border-none={preview}
-      class:text-gray-500={preview}
+      class:text-gray-700={preview}
       {...props}
     />
   {/if}

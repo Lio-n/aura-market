@@ -10,6 +10,8 @@
   import SearchProduct from './searchProduct.svelte';
   import SideBarManu from './publicSideBarMenu.svelte';
   import { categoryStore } from '$lib/stores/product.store';
+  import { text } from '@sveltejs/kit';
+  import { page } from '$app/stores';
 
   const dropdownContent = [
     { to: `/product/category/${$categoryStore.Clothes.name}`, name: $categoryStore.Clothes.name },
@@ -39,7 +41,7 @@
 
   <nav class="hidden md:flex space-x-4 gap-2">
     <Dropdown name="Categories" content={dropdownContent} />
-    <a href="/#deals" class="flex gap-1 items-center font-medium text-xs text-gray-700 group hover:text-gray-900"
+    <a href="/deals" class="flex gap-1 items-center font-medium text-xs text-gray-700 group hover:text-gray-900"
       ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 group-hover:stroke-gray-950" />Deals</a
     >
   </nav>
@@ -50,13 +52,15 @@
     {#if $userStore}
       {#if isAdmin}
         <a class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900" href="/admin"
-          ><Icon name="window" class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950" />
+          ><Icon name="window" class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950}" />
           Dashboard</a
         >
       {/if}
 
       {#if isCustomer}
-        <a class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900" href="/account"
+        <a
+          class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900"
+          href="/account/my-profile"
           ><Icon
             name="user"
             class="transition-colors fill-none stroke-gray-900 stroke-2 hover:stroke-gray-950"
