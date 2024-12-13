@@ -1,5 +1,5 @@
 <script>
-  let { group = $bindable(), id, name, value, checked } = $props();
+  let { group = $bindable(), id, name, value, checked = false } = $props();
 </script>
 
 <div>

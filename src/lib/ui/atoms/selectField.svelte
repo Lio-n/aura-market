@@ -24,7 +24,7 @@
         <option hidden selected>{placeholder}</option>
       {/if}
       {#each options as item}
-        <option value={item.value} class="text-gray-500" selected={selected === item.name}>{item.name}</option>
+        <option value={item.value} class="text-gray-500" selected={selected === item.value}>{item.name}</option>
       {/each}
     </select>
     <svg

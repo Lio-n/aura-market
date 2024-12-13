@@ -77,7 +77,13 @@
           <div class="bg-green-300 rounded p-2 w-8"></div>
         </div>
 
-        <Button variant="ghost" icon="plus" class="!w-fit px-2 hover:bg-gray-100" on:click={toggleCreateProductModal} />
+        <Button
+          text=""
+          variant="ghost"
+          icon="plus"
+          class="!w-fit px-2 hover:bg-gray-100"
+          on:click={toggleCreateProductModal}
+        />
       </div>
 
       <Table {tableHeads}>

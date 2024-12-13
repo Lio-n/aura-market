@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import type { CartItem } from './cart.store';
 import { SHIPPING_METHOD, SHIPPING_TYPES, type SHIPPING_ITEM } from '../../constants';
-import type { Countries } from '../../routes/(protected)/checkout/+page.server';
+import type { Countries } from './shippingAddress.store';
 export interface ShippingType extends SHIPPING_ITEM {}
 
 export interface ShippingAddress {

@@ -7,7 +7,7 @@ import { ROLES } from '../../../constants';
 export function load({ locals }) {
   const user = locals.user;
   const isCustomer = user && checkRole(user, ROLES.CUSTOMER);
-  console.log(isCustomer, user);
+
   if (!isCustomer) {
     redirect(307, '/unauthorized');
   }

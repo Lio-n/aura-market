@@ -1,6 +1,5 @@
 import type { Actions, PageServerLoad } from './$types';
 import countriesJson from '$lib/data/json/countries.json';
-import { type CheckoutDetails } from '$lib/stores/checkout.store';
 import { SHIPPING_METHOD } from '../../../constants';
 import {
   CreateCheckoutFormSchema,
@@ -9,12 +8,7 @@ import {
   type CreateCheckoutType,
 } from '$lib/schemas/checkout.schema';
 import { delay } from '$lib/helper/delay';
-
-export type Countries = {
-  countryCode: string;
-  country: string;
-  flag: string;
-};
+import type { Countries } from '$lib/stores/shippingAddress.store';
 
 export const load: PageServerLoad = async () => {
   let countries: Array<{ value: string; name: string }> | null = null;

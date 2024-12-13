@@ -13,6 +13,7 @@
   import { cartStore } from '$lib/stores/cart.store';
   import TransactionDetails, { type ITransactionDetails } from '$lib/ui/organisms/transactionDetails.svelte';
   import type { SHIPPING_TYPES } from '../../../constants';
+  import AddressItem from '$lib/ui/atoms/addressItem.svelte';
 
   let currTransaction = $state<ITransactionDetails | null>(null);
   let isTransactionCompleted = $state<boolean>(false);
@@ -143,20 +144,13 @@
                 class="cursor-pointer size-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
               />
 
-              <div>
-                <p class="text-sm text-gray-600 font-semibold">{$checkoutStore.shipping.address.street_name}</p>
-                <div class="flex gap-1 text-xs text-gray-500 flex-wrap">
-                  <p>{$checkoutStore.customer.phone_number}</p>
-                  <span>-</span>
-                  <p>{$checkoutStore.shipping.address.country.country}</p>
-                  <span>-</span>
-                  <p>{$checkoutStore.shipping.address.city}</p>
-                  <span>-</span>
-                  <p>{$checkoutStore.shipping.address.postal_code}</p>
-                  <span>-</span>
-                  <p>{$checkoutStore.shipping.address.region}</p>
-                </div>
-              </div>
+              <AddressItem
+                data={{
+                  ...$checkoutStore.shipping.address,
+                  country: $checkoutStore.shipping.address.country.country,
+                  phone_number: $checkoutStore.customer.phone_number,
+                }}
+              />
             </label>
           {:else}
             <div class="flex items-center m-4 w-fit">

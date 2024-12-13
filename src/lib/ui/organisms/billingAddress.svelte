@@ -1,24 +1,12 @@
 <script lang="ts">
   import TextField from '../atoms/textField.svelte';
-  import countriesJson from '$lib/data/json/countries.json';
-  import type { Countries } from '../../../routes/(protected)/checkout/+page.server';
-  import SelectField from '../atoms/selectField.svelte';
-
-  let countries: Array<{ value: string; name: string }> = countriesJson.map((i: Countries) => ({
-    value: i.countryCode,
-    name: i.flag + ' ' + i.country,
-  }));
+  import SelectCountry from '$lib/components/selectCountry.svelte';
 
   export let inValid: { errors: { [k: string]: any } | null } = { errors: null };
 </script>
 
 <div class="space-y-4">
-  <span>
-    {#if countries}
-      <label for="countries_select" class="block mb-2 text-sm font-medium text-gray-600">Select Shipping Country</label>
-      <SelectField id="countries_select" options={countries} name="country" selected={countries[0].name} />
-    {/if}
-  </span>
+  <SelectCountry name="country" />
 
   <TextField
     name="phone_number"

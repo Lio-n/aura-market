@@ -1,8 +1,8 @@
 import type { PaymentStore } from '$lib/stores/payment.store';
-import type { Countries } from '../checkout/+page.server';
 import countriesJson from '$lib/data/json/countries.json';
 import { CreatePaymentFormSchema, type CreatePaymentFormType } from '$lib/schemas/payment.schema';
 import { delay } from '$lib/helper/delay';
+import type { Countries } from '$lib/stores/shippingAddress.store';
 
 export const actions = {
   createPayment: async ({ request }) => {
