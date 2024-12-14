@@ -7,7 +7,7 @@
   let stylesByActualPage = 'text-gray-900 bg-gray-100 !border-blue-500';
 </script>
 
-<div class="mr-4 border-r ml-12 pr-4 w-60">
+<div class="mr-4 border-r ml-12 pr-4 w-64">
   <div class="sticky top-[5rem]">
     <div class="flex items-center gap-4 border-b mb-4 pb-4">
       <!-- svelte-ignore a11y_img_redundant_alt -->
@@ -35,8 +35,9 @@
       >
 
       <a
-        class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 border-l-2 border-transparent {currPage ===
-        '/account/orders'
+        class="font-medium text-xs flex items-center gap-1 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 border-l-2 border-transparent {currPage.includes(
+          'orders'
+        )
           ? stylesByActualPage
           : ''}"
         href="/account/orders"

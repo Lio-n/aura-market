@@ -35,7 +35,7 @@
     const newOrder = {
       id: crypto.randomUUID(),
       items: $checkoutStore.items,
-      totalAmount: parsedPayment.paymentDetails.amount,
+      grand_total: parsedPayment.paymentDetails.amount,
       payment: {
         transactionId: parsedPayment.paymentDetails.transactionId,
         status: parsedPayment.paymentDetails.status,

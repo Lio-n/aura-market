@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store';
 import type { CartItem } from './cart.store';
+import { storage } from './localStorage';
 
 export interface OrderDetails {
   id: string;
   items: Record<number, CartItem>;
-  totalAmount: number;
+  grand_total: number;
   payment: {
     transactionId: string;
     status: 'completed' | 'failed' | 'pending' | null;
@@ -13,4 +14,17 @@ export interface OrderDetails {
   status: 'pending' | 'shipped' | 'delivered' | 'cancelled' | null;
 }
 
-export const orderStore = writable<Array<OrderDetails> | []>([]);
+const createOrder = () => {
+  const storedOrders = storage.getItem<string | null>('order_store');
+  const initial: Array<OrderDetails> = storedOrders ? JSON.parse(storedOrders) : [];
+
+  const store = writable<Array<OrderDetails> | []>(initial);
+
+  store.subscribe((order_store) => {
+    storage.setItem('order_store', JSON.stringify(order_store));
+  });
+
+  return store;
+};
+
+export const orderStore = createOrder();

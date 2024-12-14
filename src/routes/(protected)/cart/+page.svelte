@@ -38,7 +38,7 @@
         >
       </span>
 
-      <div class="overflow-auto max-h-24 border-y my-2 py-2">
+      <div class="overflow-auto min-h-24 border-y my-2 py-2">
         {#each $cartStore.items as data (data.item.id)}
           <span class="flex justify-between gap-4">
             <span class="text-gray-600 text-sm"

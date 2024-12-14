@@ -36,7 +36,7 @@ export const actions = {
           last_4_digits: result.data.card_number.slice(-4),
           type: 'Visa',
         },
-        status: 'pending',
+        status: 'completed',
         transactionId: crypto.randomUUID(),
         amount: result.data.total_price + result.data.shipping_price,
       },
