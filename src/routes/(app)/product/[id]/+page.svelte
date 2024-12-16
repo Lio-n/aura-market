@@ -9,7 +9,7 @@
   const GetLocalProductById = (_id: string): ProductEntity | null => {
     if (!$page.params.id) return null;
 
-    return $productsStore.find((i) => i.id === parseInt(_id)) as ProductEntity | null;
+    return $productsStore.find((i) => i.id === parseFloat(_id)) as ProductEntity | null;
   };
 
   let product: ProductEntity | null = $state(

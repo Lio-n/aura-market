@@ -17,16 +17,16 @@ export enum SHIPPING_TYPES {
   EXPRESS = 'EXPRESS',
 }
 
-export type SHIPPING_ITEM = { method: string; label: string; lead_time: string; price: number };
+export type SHIPPING_ITEM = { method: string; label: string; lead_time: { min: number; max: number }; price: number };
 
 export type SHIPPING_METHOD = {
   [key in SHIPPING_TYPES]: SHIPPING_ITEM;
 };
 
 export const SHIPPING_METHOD: SHIPPING_METHOD = {
-  FREE: { method: SHIPPING_TYPES.FREE, label: 'Free', lead_time: '7-30 business days', price: 0 },
-  REGULAR: { method: SHIPPING_TYPES.REGULAR, label: 'Regular', lead_time: '3-14 business days', price: 5.49 },
-  EXPRESS: { method: SHIPPING_TYPES.EXPRESS, label: 'Express', lead_time: '1-3 business days', price: 18.2 },
+  FREE: { method: SHIPPING_TYPES.FREE, label: 'Free', lead_time: { min: 7, max: 30 }, price: 0 },
+  REGULAR: { method: SHIPPING_TYPES.REGULAR, label: 'Regular', lead_time: { min: 3, max: 14 }, price: 5.49 },
+  EXPRESS: { method: SHIPPING_TYPES.EXPRESS, label: 'Express', lead_time: { min: 1, max: 3 }, price: 18.2 },
 } as const;
 
 export type Role = (typeof ROLES)[keyof typeof ROLES];

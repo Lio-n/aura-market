@@ -3,6 +3,7 @@ import countriesJson from '$lib/data/json/countries.json';
 import { CreatePaymentFormSchema, type CreatePaymentFormType } from '$lib/schemas/payment.schema';
 import { delay } from '$lib/helper/delay';
 import type { Countries } from '$lib/stores/shippingAddress.store';
+import { SHIPPING_METHOD } from '../../../constants';
 
 export const actions = {
   createPayment: async ({ request }) => {
@@ -14,8 +15,7 @@ export const actions = {
 
     const result = CreatePaymentFormSchema.safeParse({
       ...formDataObject,
-      shipping_price: parseInt(formDataObject.shipping_price + ''),
-      total_price: parseInt(formDataObject.total_price + ''),
+      total_price: parseFloat(formDataObject.total_price + ''),
     });
 
     if (result.error) {
@@ -35,10 +35,12 @@ export const actions = {
           holder_name: result.data.card_name,
           last_4_digits: result.data.card_number.slice(-4),
           type: 'Visa',
+          expiration_date: result.data.expiration_date,
+          card_cvv: result.data.card_cvv,
         },
         status: 'completed',
         transactionId: crypto.randomUUID(),
-        amount: result.data.total_price + result.data.shipping_price,
+        amount: result.data.total_price + SHIPPING_METHOD[result.data.shipping_method].price,
       },
       checkoutDetails: {
         total_price: result.data.total_price,
@@ -48,12 +50,7 @@ export const actions = {
           phone_number: result.data.phone_number,
         },
         shipping: {
-          info: {
-            method: result.data.shipping_method,
-            label: result.data.shipping_label,
-            price: result.data.shipping_price,
-            lead_time: result.data.shipping_lead_time,
-          },
+          info: SHIPPING_METHOD[result.data.shipping_method],
           address: {
             country: countriesJson.find((i) => i.countryCode === result.data.country) as Countries,
             street_name: result.data.street_name,

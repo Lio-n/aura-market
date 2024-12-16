@@ -1,10 +1,13 @@
 import { writable } from 'svelte/store';
 import type { CheckoutDetails } from './checkout.store';
+import { storage } from './localStorage';
 
 export interface PaymentDetails {
   credit_card: {
     holder_name: string;
     last_4_digits: string;
+    expiration_date: string;
+    card_cvv: string;
     type: 'Visa';
   };
   status: 'pending' | 'completed' | 'failed';
@@ -17,4 +20,17 @@ export interface PaymentStore {
   checkoutDetails: Pick<CheckoutDetails, 'customer' | 'shipping' | 'total_price'>;
 }
 
-export const paymentStore = writable<Array<PaymentStore> | []>([]);
+const createPayment = () => {
+  const storedPayment = storage.getItem<string | null>('payment_store');
+  const initial: Array<PaymentStore> = storedPayment ? JSON.parse(storedPayment) : [];
+
+  const store = writable<Array<PaymentStore> | []>(initial);
+
+  store.subscribe((payment_store) => {
+    storage.setItem('payment_store', JSON.stringify(payment_store));
+  });
+
+  return store;
+};
+
+export const paymentStore = createPayment();

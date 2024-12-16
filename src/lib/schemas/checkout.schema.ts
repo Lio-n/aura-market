@@ -21,7 +21,7 @@ export const CreateCheckoutSchema = z.object({
     info: z.object({
       method: z.string(),
       label: z.string(),
-      lead_time: z.string(),
+      lead_time: z.object({ min: z.number(), max: z.number() }),
       price: z.number(),
     }),
     address: z.object({

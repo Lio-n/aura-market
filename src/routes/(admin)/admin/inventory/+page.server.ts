@@ -25,8 +25,8 @@ export const actions: Actions = {
 
     const result = CreateProductFormSchema.safeParse({
       ...formDataObject,
-      price: parseInt(formDataObject.price),
-      stock: parseInt(formDataObject.stock),
+      price: parseFloat(formDataObject.price),
+      stock: parseFloat(formDataObject.stock),
       images: JSON.parse(formDataObject.uploadedImages || '[]'),
     });
 
@@ -73,8 +73,8 @@ export const actions: Actions = {
 
     const result = UpdateProductFormSchema.safeParse({
       ...formDataObject,
-      price: parseInt(formDataObject.price),
-      stock: parseInt(formDataObject.stock),
+      price: parseFloat(formDataObject.price),
+      stock: parseFloat(formDataObject.stock),
       images: JSON.parse(formDataObject.uploadedImages || '[]'),
     });
 

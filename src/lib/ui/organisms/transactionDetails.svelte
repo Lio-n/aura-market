@@ -21,6 +21,7 @@
   import CheckoutItem from '../molecules/checkoutItem.svelte';
 
   export let data: ITransactionDetails;
+  export let preview: boolean = false;
 </script>
 
 <div class="m-4 sm:mx-auto">
@@ -55,12 +56,15 @@
     <div class="border-b pb-4">
       <h3 class="text-sm font-bold text-gray-600">Shipping Method</h3>
       <p class="text-xs text-gray-500 mt-2">
-        {SHIPPING_METHOD[data.shipping_method].label} delivery ({SHIPPING_METHOD[data.shipping_method].lead_time})
+        {SHIPPING_METHOD[data.shipping_method].label} delivery ({SHIPPING_METHOD[data.shipping_method].lead_time
+          .min}-{SHIPPING_METHOD[data.shipping_method].lead_time.max} business days)
       </p>
-      <a
-        href="/account/orders/{data.order_id}"
-        class="w-fit block mt-4 text-sm underline font-bold text-gray-700 hover:text-gray-500">TRACK ORDER</a
-      >
+      {#if !preview}
+        <a
+          href="/account/orders/{data.order_id}"
+          class="w-fit block mt-4 text-sm underline font-bold text-gray-700 hover:text-gray-500">TRACK ORDER</a
+        >
+      {/if}
     </div>
   </div>
 
@@ -78,7 +82,7 @@
       <span class="flex justify-between">
         <span class="text-gray-400 text-xs md:text-sm">Subtotal</span>
         <span class="font-semibold text-sm md:text-md text-gray-700"
-          >{parseInt(data.total_price + '').toLocaleString('en-US', {
+          >{parseFloat(data.total_price + '').toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
           })}</span
@@ -106,7 +110,7 @@
         <span>Grand total</span>
         <span
           >{(
-            parseInt(data.total_price + '') + parseInt(SHIPPING_METHOD[data.shipping_method].price + '')
+            parseFloat(data.total_price + '') + parseFloat(SHIPPING_METHOD[data.shipping_method].price + '')
           ).toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -114,11 +118,13 @@
         >
       </span>
 
-      <a
-        href="/"
-        class="mt-4 flex gap-2 justify-center items-center transition-colors rounded-md w-full font-semibold border-2 border-gray-950 bg-gray-950 text-white hover:bg-white hover:text-gray-950 group py-2 px-4 sm:py-4 sm:px-6 text-xs sm:text-md"
-        >Continue shopping</a
-      >
+      {#if !preview}
+        <a
+          href="/cart"
+          class="mt-4 flex gap-2 justify-center items-center transition-colors rounded-md w-full font-semibold border-2 border-gray-950 bg-gray-950 text-white hover:bg-white hover:text-gray-950 group py-2 px-4 sm:py-4 sm:px-6 text-xs sm:text-md"
+          >Continue shopping</a
+        >
+      {/if}
     </div>
   </div>
 </div>

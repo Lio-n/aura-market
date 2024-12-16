@@ -126,7 +126,7 @@
               <div class="flex justify-between gap-2 w-full">
                 <div class="flex flex-col justify-between">
                   <h4 class="font-semibold max-sm:text-xs">{item.label}</h4>
-                  <span class="text-xs">{item.lead_time}</span>
+                  <span class="text-xs">{item.lead_time.min}-{item.lead_time.max} business days</span>
                 </div>
 
                 <span

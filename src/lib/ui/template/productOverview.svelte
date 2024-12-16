@@ -10,7 +10,7 @@
 <section class="grid sm:grid-cols-2 gap-4 md:gap-12 mt-8">
   <div>
     <img
-      class="size-full object-contain rounded-md max-h-60 sm:max-h-96"
+      class="bg-gray-100 size-full object-contain rounded-md max-h-60 sm:max-h-96"
       src={product.images[0]}
       alt="{product.title} image"
     />

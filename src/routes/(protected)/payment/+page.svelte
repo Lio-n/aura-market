@@ -93,9 +93,6 @@
         e.formData.append('customer_fullname', $checkoutStore.customer.fullname);
 
         e.formData.append('shipping_method', $checkoutStore.shipping.info.method);
-        e.formData.append('shipping_label', $checkoutStore.shipping.info.label);
-        e.formData.append('shipping_price', $checkoutStore.shipping.info.price + '');
-        e.formData.append('shipping_lead_time', $checkoutStore.shipping.info.lead_time);
 
         if (useShippingAddress) {
           e.formData.set('country', $checkoutStore.shipping.address.country.countryCode);

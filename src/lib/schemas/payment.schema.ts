@@ -12,9 +12,6 @@ export const CreatePaymentFormSchema = z
     postal_code: z.string().min(5, 'Postal code is required, min 5 - max 10 characters.').max(10),
 
     shipping_method: z.enum(['FREE', 'REGULAR', 'EXPRESS']),
-    shipping_label: z.string(),
-    shipping_lead_time: z.string(),
-    shipping_price: z.number(),
     total_price: z.number(),
 
     card_number: z.string().regex(CARD_NUMBER_REGEX, { message: 'Card number must be 16 digits.' }),
