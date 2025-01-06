@@ -1,38 +1,78 @@
-# create-svelte
+<p align="center" style="margin:50px 0;">
+<img src="static/favicon.svg" width="100"/>
+</p>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+<h2 align="center" style="margin:50px 0; font-style: italic; font-weight: 500;">
+  AuraMarket.
+</h2>
 
-## Creating a project
+## 📍 Table of Contents
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [Overview](#overview)
+  - [📌 Project Structure](#📌-project-structure)
+  - [⚜️ Built with](#⚜️-built-with)
+  - [Technical instructions](#technical-instructions)
+- [🚀 Getting Started](#🚀-getting-started)
+  - [🟠 Pre-requirements](#🟠-pre-requirements)
+  - [🔵 Installation](#🔵-installation)
+- [📝 Authors](#📝-authors)
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Overview
 
-# create a new project in my-app
-npx sv create my-app
-```
+**AuraMarket** is a lightweight e-commerce platform designed for users to explore the functionalities of an online marketplace in a fully local environment. The platform allows two types of users—admin and customer—to interact, simulate transactions, and test features in real-time without relying on external servers or databases.
 
-## Developing
+The primary goal is to provide a seamless and interactive experience, demonstrating essential e-commerce functionalities while preserving simplicity and speed.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### 📌 Project Structure
 
-```bash
-npm run dev
+- **src/assets**: Contains static files such as images, icons, and other resources used throughout the project.
+- **src/components**: Houses reusable and shared components utilized across the application.
+- **src/ui/atoms**: Smallest UI elements like buttons, inputs, or icons.
+- **src/ui/molecules**: Combinations of atoms, like a form field or product card.
+- **src/ui/organisms**: More complex UI elements formed by molecules and atoms, such as headers or forms.
+- **src/lib**: Third-party libraries and modules that extend the platform’s capabilities.
+- **src/utils**: Helper functions and utilities for common operations.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+### ⚜️ Built with
 
-## Building
+- **SvelteKit**: To build a reactive and performant user interface.
+- **TailwindCSS**: For rapid styling and responsive design.
+- **TypeScript**: For type-safe code.
+- **Vite**: For fast development and optimized builds.
 
-To create a production version of your app:
+### Technical instructions
 
-```bash
-npm run build
-```
+| Command        | Action performed                               |
+| -------------- | ---------------------------------------------- |
+| `yarn install` | Install all dependencies                       |
+| `yarn dev`     | Start a development server at `localhost:3000` |
+| `yarn build`   | Generate the production build in `./dist/`     |
+| `yarn preview` | Preview the build before deployment            |
+| `yarn lint`    | Analyze and fix code quality issues            |
 
-You can preview the production build with `npm run preview`.
+## 🚀 Getting Started
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+### 🟠 Pre-requirements
+
+- Node.js (>=18.x)
+- Yarn (>=3.2.0)
+
+### 🔵 Installation
+
+1. Clone repository:
+   ```sh
+   git clone git@github.com:yourusername/auramarket.git
+   cd auramarket
+   ```
+2. Install dependencies:
+   ```sh
+   yarn install
+   ```
+3. Run the development server:
+   ```sh
+   yarn dev
+   ```
+
+## 📝 Authors
+
+- 🧑‍💼 [Leonardo Fontan](https://github.com/Lio-n)
