@@ -45,9 +45,12 @@
 
   <nav class="hidden md:flex space-x-4 gap-2">
     <Dropdown name="Categories" content={dropdownContent} />
-    <a href="/deals" class="flex gap-1 items-center font-medium text-xs text-gray-700 group hover:text-gray-900"
+    <!-- <a href="/deals" class="flex gap-1 items-center font-medium text-xs text-gray-700 group hover:text-gray-900"
       ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 group-hover:stroke-gray-950" />Deals</a
-    >
+    > -->
+    <span class="flex gap-1 items-center font-medium text-xs text-gray-700 group hover:text-gray-900"
+      ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 group-hover:stroke-gray-950" />Deals
+    </span>
   </nav>
 
   <SearchProduct />

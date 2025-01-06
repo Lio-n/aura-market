@@ -150,13 +150,17 @@
         >
 
         <DropdownVertical name="Categories" content={dropdownContent} addTagIcon />
-        <a
+        <span
+          class="p-2 font-medium text-xs flex gap-1 items-center text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md"
+          ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 hover:stroke-gray-950" />Deals
+        </span>
+        <!-- <a
           href="/deals"
           class="{currPage === '/deals'
             ? stylesByActualPage
             : ''} p-2 font-medium text-xs flex gap-1 items-center text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md"
           ><Icon name="sparkles" class="transition-colors fill-none stroke-gray-900 hover:stroke-gray-950" />Deals</a
-        >
+        > -->
       </div>
     </div>
   {/if}
