@@ -20,9 +20,13 @@
     { to: `/product/category/${$categoryStore.Shoes.name}`, name: $categoryStore.Shoes.name },
   ];
 
-  const signOut = () => {
-    document.cookie = 'access_token=;';
+  const signOut = async () => {
+    const response = await fetch('/api/auth/signout', {
+      method: 'POST',
+    });
+
     $userStore = null;
+
     goto('/');
   };
 

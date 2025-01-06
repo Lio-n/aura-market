@@ -4,7 +4,6 @@ import { redirect, type Handle } from '@sveltejs/kit';
 export const handle: Handle = async ({ event, resolve }) => {
   event.locals.user = null;
 
-  // get access token from cookies
   const accessToken = event.cookies.get('access_token');
 
   const fetchUserData = async () => {

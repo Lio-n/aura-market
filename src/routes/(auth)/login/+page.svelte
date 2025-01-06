@@ -1,42 +1,10 @@
 <script>
-  import { goto } from '$app/navigation';
-
+  import { enhance } from '$app/forms';
   import Loading from '$lib/components/loading.svelte';
-  import { userStore } from '$lib/stores/user.store';
 
   let loading = false;
   let email = '';
   let password = '';
-
-  const login = async () => {
-    loading = true;
-    const res = await fetch('https://api.escuelajs.co/api/v1/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json(); // access_toke - refresh_token
-
-    if (data.statusCode === 401) {
-      loading = false;
-      alert(data.message);
-      return;
-    }
-
-    // set token in cookies
-    document.cookie = `access_token=${data.access_token}`;
-
-    const userData = await fetch('https://api.escuelajs.co/api/v1/auth/profile', {
-      headers: {
-        Authorization: `Bearer ${data.access_token}`,
-      },
-    }).then(async (res) => await res.json());
-
-    $userStore = userData;
-    goto('/');
-  };
 </script>
 
 {#if loading}
@@ -49,7 +17,7 @@
         <p class="text-gray-500">Welcome back! Please sign in to your account.</p>
       </div>
 
-      <form class="space-y-5" on:submit|preventDefault={login}>
+      <form class="space-y-5" use:enhance method="POST" action="?/login">
         <div>
           <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="email">
             Email
