@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { imageFallback } from '$lib/helper/imageFallback';
   import type { ProductEntity } from '$lib/stores/product.store';
   import Button from '../atoms/button.svelte';
   import CartButton from '../atoms/cartButton.svelte';
@@ -13,6 +14,7 @@
       class="bg-gray-100 size-full object-contain rounded-md max-h-60 sm:max-h-96"
       src={product.images[0]}
       alt="{product.title} image"
+      on:error={imageFallback}
     />
   </div>
 
@@ -31,7 +33,7 @@
     </span>
 
     <div class="flex gap-2">
-      <Button text="Buy Now" size="medium"></Button>
+      <!-- <Button text="Buy Now" size="medium"></Button> -->
 
       <CartButton item={product} variant="outline" size="medium" />
     </div>
