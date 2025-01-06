@@ -16,7 +16,7 @@
     [CATEGORY['Miscellaneous']]: [],
     [CATEGORY['Shoes']]: [],
   };
-  let currentCategoryName = CATEGORY.Clothes;
+  let currentCategoryName = $state(CATEGORY.Clothes);
 
   const GetMostSellingProductsByCategory = async (category: CATEGORY) => {
     if (cache[category].length) {
@@ -33,9 +33,12 @@
   const handleSubmit = async (event: MouseEvent) => {
     const button = event.currentTarget as HTMLButtonElement;
 
+    console.log(button);
     if (currentCategoryName === button.name) return;
 
     currentCategoryName = button.name as CATEGORY;
+    console.log(currentCategoryName, Object.entries($categoryStore));
+
     await GetMostSellingProductsByCategory(currentCategoryName);
   };
 
