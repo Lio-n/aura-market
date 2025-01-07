@@ -4,7 +4,7 @@
 
   let { label = null, isInvalid = '', preview = false, value = $bindable(), ref = $bindable(), ...props } = $props();
 
-  let textareaElement: HTMLTextAreaElement;
+  let textareaElement: HTMLTextAreaElement | undefined = $state(undefined);
 
   function adjustTextareaHeight() {
     if (textareaElement) {
@@ -26,7 +26,7 @@
   {#if props.type === 'textarea'}
     <textarea
       bind:this={textareaElement}
-      on:input={adjustTextareaHeight}
+      oninput={adjustTextareaHeight}
       id={props.name}
       {value}
       class="resize-none block p-2.5 w-full text-sm text-gray-600 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 {props.class}"

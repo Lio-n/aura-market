@@ -52,6 +52,7 @@
       : 'top-10 left-32 max-h-[80vh] min-h-[20rem] w-[40rem] min-w-[40rem]'}"
     style={isFullScreen ? 'transform: translate3d(0, 0, 0px)' : ''}
   >
+    <!-- svelte-ignore slot_element_deprecated -->
     <div>
       <div
         class="bg-gray-950 w-full flex {isFullScreen ? 'justify-end' : 'justify-between'} rounded-t sticky top-0 z-[2]"

@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { PUBLIC_PLATZI_FAKE_STORE_API_V1 } from '$env/static/public';
   import ProductCard from '$lib/ui/molecules/productCard.svelte';
   import { onMount } from 'svelte';
   import Loading from './loading.svelte';
   import { CATEGORY, categoryStore, type ProductEntity } from '$lib/stores/product.store';
   import { ProductService, type ApiError } from '$lib/services/productService';
 
-  let error: ApiError | null;
+  let error: ApiError | null = $state(null);
   let isLoading = $state(true);
   let data: Array<ProductEntity> | null = $state(null);
 
@@ -58,7 +57,7 @@
           class="rounded-full px-4 py-2 font-medium text-sm {currentCategoryName === item.name
             ? 'bg-cyan-600 text-white'
             : 'border-gray-200 border-2 text-gray-700'}"
-          on:click={handleSubmit}>{item.name}</button
+          onclick={handleSubmit}>{item.name}</button
         >
       {/each}
     </ul>
