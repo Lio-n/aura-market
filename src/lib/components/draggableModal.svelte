@@ -53,7 +53,9 @@
     style={isFullScreen ? 'transform: translate3d(0, 0, 0px)' : ''}
   >
     <div>
-      <div class="bg-gray-950 w-full flex {isFullScreen ? 'justify-end' : 'justify-between'} rounded-t sticky top-0">
+      <div
+        class="bg-gray-950 w-full flex {isFullScreen ? 'justify-end' : 'justify-between'} rounded-t sticky top-0 z-[2]"
+      >
         {#if !isFullScreen}
           <Icon
             name="dots-6"

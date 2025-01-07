@@ -3,6 +3,7 @@ import {
   CreateProductFormSchema,
   CreateProductSchema,
   UpdateProductFormSchema,
+  UpdateProductSchema,
   type CreateProductFormType,
   type UpdateProductFormType,
   type UpdateProductType,
@@ -57,7 +58,7 @@ export const actions: Actions = {
 
     const response = CreateProductSchema.safeParse(parsedProduct);
 
-    return { success: result.success, data: response.data };
+    return { success: result.success, product: response.data };
   },
   updateProduct: async ({ request }) => {
     const formData = await request.formData();
@@ -101,6 +102,8 @@ export const actions: Actions = {
       specifications: { brand: result.data.brand, model: result.data.model },
     };
 
-    return { success: result.success, data: parsedProduct };
+    const response = UpdateProductSchema.safeParse(parsedProduct);
+
+    return { success: result.success, product: response.data };
   },
 };

@@ -15,6 +15,7 @@
 - [🚀 Getting Started](#🚀-getting-started)
   - [🟠 Pre-requirements](#🟠-pre-requirements)
   - [🔵 Installation](#🔵-installation)
+  - [Users Authentication](#users-authentication)
 - [📝 Authors](#📝-authors)
 
 ## Overview
@@ -72,6 +73,13 @@ The primary goal is to provide a seamless and interactive experience, demonstrat
    ```sh
    yarn dev
    ```
+
+### Users Authentication
+
+| Role     | Email          | Password |
+| -------- | -------------- | -------- |
+| admin    | admin@mail.com | admin123 |
+| customer | john@mail.com  | changeme |
 
 ## 📝 Authors
 

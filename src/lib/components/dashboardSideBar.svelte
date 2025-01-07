@@ -20,9 +20,13 @@
     return () => document.removeEventListener('mousedown', handleClickOutside);
   });
 
-  const signOut = () => {
-    document.cookie = 'access_token=;';
+  const signOut = async () => {
+    const response = await fetch('/api/auth/signout', {
+      method: 'POST',
+    });
+
     $userStore = null;
+
     goto('/');
   };
 </script>
@@ -56,11 +60,17 @@
         ><Icon name="home" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
         {#if showContent}Website{/if}</a
       >
-      <a
+      <!-- <a
         class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
         href="/admin/orders"
         ><Icon name="ticket" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
         {#if showContent}Orders{/if}</a
+      > -->
+
+      <span
+        class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
+        ><Icon name="ticket" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
+        {#if showContent}Orders{/if}</span
       >
       <a
         class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
@@ -68,13 +78,19 @@
         ><Icon name="stack" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
         {#if showContent}Inventory{/if}</a
       >
-      <a
+      <!-- <a
         class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
         href="/admin/notifications"
         ><Icon name="bell" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
         {#if showContent}Notifications{/if}</a
+      > -->
+
+      <span
+        class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
+        ><Icon name="ticket" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
+        {#if showContent}Notifications{/if}</span
       >
-      <a
+      <!-- <a
         class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
         href="/admin/settings"
         ><Icon
@@ -82,6 +98,11 @@
           class="transition-colors stroke-white stroke-2 group-hover:stroke-gray-900 group-hover:fill-white"
         />
         {#if showContent}Settings{/if}</a
+      > -->
+      <span
+        class="transition-colors font-medium text-xs flex items-center gap-1 text-white hover:text-gray-900 hover:bg-gray-100 rounded-md p-2 group"
+        ><Icon name="ticket" class="transition-colors fill-none stroke-white stroke-2 group-hover:stroke-gray-900" />
+        {#if showContent}Settings{/if}</span
       >
     </div>
 
