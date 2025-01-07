@@ -55,7 +55,7 @@ The primary goal is to provide a seamless and interactive experience, demonstrat
 
 ### 🟠 Pre-requirements
 
-- Node.js (>=18.x)
+- Node.js (>=18.0.0 <=20.0.0)
 - Yarn (>=3.2.0)
 
 ### 🔵 Installation
